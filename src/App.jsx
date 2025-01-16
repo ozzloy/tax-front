@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import "./App.css";
 import "./Modal.css";
 
@@ -24,9 +25,36 @@ const Modal = ({ isOpen, onClose, children }) => {
 
 function App() {
   const [currentModal, setCurrentModal] = useState(null);
+  const [theme, setTheme] = useState("dark");
   const handleAuthOptions = () => {
     setCurrentModal("auth");
   };
+
+  const toggleTheme = () =>
+    setTheme(theme === "dark" ? "light" : "dark");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.style.setProperty(
+        "--foreground-color",
+        "whitesmoke",
+      );
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "#111",
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        "--foreground-color",
+        "#111",
+      );
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "whitesmoke",
+      );
+    }
+  }, [theme]);
+
   return (
     <>
       <header>
@@ -39,6 +67,7 @@ function App() {
           >
             <h2>hello from modal!</h2>
             <p>this is a simple modal</p>
+            <button onClick={toggleTheme}>change theme</button>
           </Modal>
         </nav>
       </header>

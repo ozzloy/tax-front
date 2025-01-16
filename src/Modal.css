@@ -27,6 +27,7 @@
 
 .modal-close {
     background: none;
+    color: var(--foreground-color);
     border: none;
     font-size: 24px;
     cursor: pointer;
