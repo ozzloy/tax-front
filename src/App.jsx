@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { setCurrentModal, toggleTheme } from "./features/uiSlice";
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
 
 const App = () => {
-  const [currentModal, setCurrentModal] = useState(null);
-  const [theme, setTheme] = useState("dark");
+  const dispatch = useDispatch();
+  const { currentModal, theme } = useSelector((state) => state.ui);
+
   const handleAuthOptionsClick = () => {
-    setCurrentModal("auth");
+    dispatch(setCurrentModal("auth"));
   };
 
-  const toggleTheme = () =>
-    setTheme(theme === "dark" ? "light" : "dark");
+  const handleToggleTheme = () => dispatch(toggleTheme());
 
   useEffect(() => {
     const foreground = theme === "dark" ? "whitesmoke" : "#111";
@@ -32,8 +34,8 @@ const App = () => {
       <HeaderBar
         onAuthClick={handleAuthOptionsClick}
         currentModal={currentModal}
-        onModalClose={() => setCurrentModal(null)}
-        onThemeToggle={toggleTheme}
+        onModalClose={() => dispatch(setCurrentModal(null))}
+        onThemeToggle={handleToggleTheme}
       />
       <main>
         <article>
