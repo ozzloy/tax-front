@@ -1,6 +1,21 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+}
+
+header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0;
+}
+
+main {
+    margin: 1em;
 }
