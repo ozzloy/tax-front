@@ -1,29 +1,9 @@
 import { useState, useEffect } from "react";
 
 import "./App.css";
-import "./Modal.css";
+import Modal from "./components/Modal";
 
-const Modal = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <header className="modal-header">
-          <button className="modal-close" onClick={onClose}>
-            ×
-          </button>
-        </header>
-        <main className="modal-body">{children}</main>
-      </div>
-    </div>
-  );
-};
-
-function App() {
+const App = () => {
   const [currentModal, setCurrentModal] = useState(null);
   const [theme, setTheme] = useState("dark");
   const handleAuthOptions = () => {
@@ -34,25 +14,17 @@ function App() {
     setTheme(theme === "dark" ? "light" : "dark");
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.style.setProperty(
-        "--foreground-color",
-        "whitesmoke",
-      );
-      document.documentElement.style.setProperty(
-        "--background-color",
-        "#111",
-      );
-    } else {
-      document.documentElement.style.setProperty(
-        "--foreground-color",
-        "#111",
-      );
-      document.documentElement.style.setProperty(
-        "--background-color",
-        "whitesmoke",
-      );
-    }
+    const foreground = theme === "dark" ? "whitesmoke" : "#111";
+    const background = theme === "dark" ? "#111" : "whitesmoke";
+    document.documentElement.style.setProperty(
+      "--foreground-color",
+      foreground,
+    );
+
+    document.documentElement.style.setProperty(
+      "--background-color",
+      background,
+    );
   }, [theme]);
 
   return (
@@ -81,6 +53,6 @@ function App() {
       </main>
     </>
   );
-}
+};
 
 export default App;
