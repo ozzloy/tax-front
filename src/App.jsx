@@ -39,7 +39,6 @@ function App() {
           >
             <h2>hello from modal!</h2>
             <p>this is a simple modal</p>
-            <button on />
           </Modal>
         </nav>
       </header>
