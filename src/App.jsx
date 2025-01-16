@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
 import "./App.css";
-import Modal from "./components/Modal";
+import HeaderBar from "./components/HeaderBar";
 
 const App = () => {
   const [currentModal, setCurrentModal] = useState(null);
   const [theme, setTheme] = useState("dark");
-  const handleAuthOptions = () => {
+  const handleAuthOptionsClick = () => {
     setCurrentModal("auth");
   };
 
@@ -29,20 +29,12 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <nav>
-          <h1>tax front</h1>
-          <button onClick={handleAuthOptions}>signup / login</button>
-          <Modal
-            isOpen={currentModal == "auth"}
-            onClose={() => setCurrentModal(null)}
-          >
-            <h2>hello from modal!</h2>
-            <p>this is a simple modal</p>
-            <button onClick={toggleTheme}>change theme</button>
-          </Modal>
-        </nav>
-      </header>
+      <HeaderBar
+        onAuthClick={handleAuthOptionsClick}
+        currentModal={currentModal}
+        onModalClose={() => setCurrentModal(null)}
+        onThemeToggle={toggleTheme}
+      />
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>
