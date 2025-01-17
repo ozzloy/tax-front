@@ -42,8 +42,8 @@ then enable the site and make apache read the new configuration
 #+end_src
 
 if you want to test locally, you can temporarily modify your local
-~/etc/hosts~ to add lines to redirect =tax.example.com= to apache on your
-machine
+~/etc/hosts~ to add lines to redirect =tax.example.com= to apache on
+your machine
 
 #+begin_src conf
 # testing tax.example.com locally before deploying
@@ -60,6 +60,8 @@ machine
   npm run build
   pm2 start server.js --name "tax-front"
 
+  # browse to tax.example.com to see if it works
+
   # the output of this might tell you to do something different than the
   # next command
   pm2 startup systemd
@@ -67,11 +69,16 @@ machine
   # the output of the prior command might give a different command than
   # the following command.  if it does, use that instead.
   sudo env \
-       PATH=$PATH:/home/ozzloy/.config/nvm/versions/node/v18.20.5/bin \
+       PATH=$PATH:/home/user/.config/nvm/versions/node/v18.20.5/bin \
        /usr/local/lib/node_modules/pm2/bin/pm2 \
        startup systemd \
-       -u ozzloy \
-       --hp /home/ozzloy
+       -u user \
+       --hp /home/user
+  # it might look like this on the server
+  sudo env PATH=$PATH:/usr/bin \
+       /usr/lib/node_modules/pm2/bin/pm2 startup systemd \
+       -u user \
+       --hp /home/user
 #+end_src
 
 ** recurring for every deployment update
