@@ -1,4 +1,9 @@
 * TODO deploy on each.do
 [2025-01-16 Thu 11:35 -0800]
-* TODO make react redux toolkit minimal example
+* TODO make a system user to run front and back
+[2025-01-17 Fri 10:34 -0800]
+* TODO make page centered
+[2025-01-17 Fri 10:30 -0800]
+* DONE make react redux toolkit minimal example
+CLOSED: [2025-01-17 Fri]
 [2025-01-16 Thu 11:35 -0800]
