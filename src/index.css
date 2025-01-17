@@ -17,9 +17,21 @@ button {
 }
 
 /* set the foreground and background color variables */
+@property --foreground-color {
+    syntax: '<color>';
+    initial-value: whitesmoke;
+    inherits: true;
+}
+@property --background-color {
+    syntax: '<color>';
+    initial-value: #111;
+    inherits: true;
+}
+
 :root {
     --foreground-color: whitesmoke;
     --background-color: #111;
+    transition: --foreground-color 0.5s ease, --background-color 0.5s ease;
 }
 
 :root {
@@ -58,9 +70,6 @@ button {
     background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
     transition: border-color 0.25s;
-}
-
-button:hover {
     border-color: var(--foreground-color);
 }
 

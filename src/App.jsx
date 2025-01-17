@@ -1,19 +1,11 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setCurrentModal, toggleTheme } from "./features/uiSlice";
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { currentModal, theme } = useSelector((state) => state.ui);
-
-  const handleAuthOptionsClick = () => {
-    dispatch(setCurrentModal("auth"));
-  };
-
-  const handleToggleTheme = () => dispatch(toggleTheme());
+  const { theme } = useSelector((state) => state.ui);
 
   useEffect(() => {
     const foreground = theme === "dark" ? "whitesmoke" : "#111";
@@ -31,12 +23,7 @@ const App = () => {
 
   return (
     <>
-      <HeaderBar
-        onAuthClick={handleAuthOptionsClick}
-        currentModal={currentModal}
-        onModalClose={() => dispatch(setCurrentModal(null))}
-        onThemeToggle={handleToggleTheme}
-      />
+      <HeaderBar />
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>
