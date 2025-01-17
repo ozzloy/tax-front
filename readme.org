@@ -1,0 +1,98 @@
+* deployment
+
+** initial set up
+
+*** get node
+
+#+begin_src bash
+  wget -qO- https://deb.nodesource.com/setup_20.x | sudo bash -
+  sudo apt-get update
+  sudo apt-get install -y nodejs
+#+end_src
+
+*** configure apache to reverse proxy to back and front of tax
+
+see the file ~conf/etc/apache2/sites-available/tax.example.com.conf~ for
+example apache configuration.
+
+**** configure the back and front together
+
+#+begin_src bash
+  cd tax/front/
+  sudo cp \
+       conf/etc/apache2/sites-available/tax.example.com.conf \
+       /etc/apache2/sites-available/tax.example.com.conf
+#+end_src
+
+edit ~/etc/apache2/sites-available/tax.example.com.conf~.  make sure to set
+
+  =SSLCertificateFile /path/to/your/fullchain.pem=
+
+and
+
+  =SSLCertificateKeyFile /path/to/your/privkey.pem=
+
+then enable the site and make apache read the new configuration
+
+#+begin_src bash
+  sudo a2enmod proxy
+  sudo a2enmod proxy_http
+  sudo a2ensite tax.example.com
+  sudo systemctl restart apache2
+#+end_src
+
+if you want to test locally, you can temporarily modify your local
+~/etc/hosts~ to add lines to redirect =tax.example.com= to apache on your
+machine
+
+#+begin_src conf
+# testing tax.example.com locally before deploying
+127.0.0.1 tax.example.com
+::1 tax.example.com
+#+end_src
+
+*** install server packages
+
+#+begin_src bash
+  cd tax/front
+  sudo npm install -y pm2 -g
+  npm install
+  npm run build
+  pm2 start server.js --name "tax-front"
+
+  # the output of this might tell you to do something different than the
+  # next command
+  pm2 startup systemd
+
+  # the output of the prior command might give a different command than
+  # the following command.  if it does, use that instead.
+  sudo env \
+       PATH=$PATH:/home/ozzloy/.config/nvm/versions/node/v18.20.5/bin \
+       /usr/local/lib/node_modules/pm2/bin/pm2 \
+       startup systemd \
+       -u ozzloy \
+       --hp /home/ozzloy
+#+end_src
+
+** recurring for every deployment update
+
+*** build the front end
+
+#+begin_src bash
+  cd tax/front
+  git pull
+  npm install
+  npm run build
+  pm2 restart tax-front
+#+end_src
+
+* maintenance
+
+** useful pm2 commands
+
+#+begin_src bash
+pm2 list           # List applications
+pm2 restart tax-app  # Restart application
+pm2 logs           # View logs
+pm2 monit          # Monitor CPU/Memory
+#+end_src
