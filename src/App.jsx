@@ -4,13 +4,11 @@ import { fetchThemes } from "./features/uiSlice";
 
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
-import ThemeSection from "./components/ThemeSection";
+import Themes from "./components/Themes";
 
 const App = () => {
   const dispatch = useDispatch();
   const { activeThemeId, theme } = useSelector((state) => state.ui);
-
-  const themes = Object.entries(theme);
 
   const applyTheme = (theme) => {
     const cssVars = {
@@ -35,14 +33,7 @@ const App = () => {
   return (
     <>
       <HeaderBar />
-      {themes &&
-        themes.map(([themeId, themeData]) => (
-          <ThemeSection
-            key={themeId}
-            themeId={Number(themeId)}
-            themeData={themeData}
-          />
-        ))}
+      <Themes />
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>

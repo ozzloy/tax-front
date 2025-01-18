@@ -1,11 +1,7 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import {
-  setActiveThemeId,
-  fetchThemes,
-} from "../../features/uiSlice";
+import { setActiveThemeId } from "../../features/uiSlice";
 import "./ThemeSection.css";
 
 const ThemeSection = ({ themeId, themeData }) => {
@@ -13,9 +9,6 @@ const ThemeSection = ({ themeId, themeData }) => {
   const handleThemeChange = (themeId) => {
     dispatch(setActiveThemeId(themeId));
   };
-  useEffect(() => {
-    dispatch(fetchThemes());
-  }, []);
   return (
     <section
       className="theme-section"
