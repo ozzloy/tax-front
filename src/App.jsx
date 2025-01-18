@@ -28,11 +28,13 @@ const App = () => {
     applyTheme(theme[activeThemeId]);
   }, [activeThemeId, theme]);
 
-  const handleFetchThemes = () => dispatch(fetchThemes());
+  useEffect(() => {
+    dispatch(fetchThemes());
+  }, [dispatch]);
+
   return (
     <>
       <HeaderBar />
-      <button onClick={handleFetchThemes}>fetch themes!</button>
       {themes &&
         themes.map(([themeId, themeData]) => (
           <ThemeSection
