@@ -1,0 +1,53 @@
+.login-form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "header          header        "
+    "email-label     email-input   "
+    "password-label  password-input"
+    "button          button        ";
+  gap: 1rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 3px solid;
+  border-color: var(--foreground-color);
+  border-radius: 8px;
+}
+
+.login-form h2 {
+  grid-area: header;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.login-form label[for="email"] {
+  grid-area: email-label;
+  align-self: center;
+}
+
+.login-form input[name="email"] {
+  grid-area: email-input;
+}
+
+.login-form label[for="password"] {
+  grid-area: password-label;
+  align-self: center;
+}
+
+.login-form input[name="password"] {
+  grid-area: password-input;
+}
+
+.login-form button {
+  grid-area: button;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.login-form input {
+  padding: 0.5rem;
+  border: 1px solid;
+  border-radius: 4px;
+}

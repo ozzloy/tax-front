@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentModal } from "../../features/uiSlice";
 import Modal from "../Modal";
 import "./HeaderBar.css";
+import Login from "../Login";
 
 const HeaderBar = () => {
   const dispatch = useDispatch();
@@ -17,14 +18,15 @@ const HeaderBar = () => {
       <nav>
         <h1>tax front</h1>
         <button onClick={handleAuthOptionsClick}>
-          signup / login
+          login / signup
         </button>
         <Modal
           isOpen={currentModal == "auth"}
           onClose={() => dispatch(setCurrentModal(null))}
         >
-          <h2>hello from modal!</h2>
-          <p>this is a simple modal</p>
+          <Login />
+          <h3>new?</h3>
+          <button>sign up</button>
         </Modal>
       </nav>
     </header>
