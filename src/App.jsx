@@ -39,33 +39,26 @@ const App = () => {
       {themes &&
         themes.map(([themeId, themeData]) => (
           <section
+            className="theme-section"
             key={themeId}
             style={{
-              padding: "1em",
-              margin: "1em 0",
-              border: "1px solid var(--foreground-color)",
-              borderRadius: "8px",
               backgroundColor: themeData.background_color,
               color: themeData.foreground_color,
               borderColor: themeData.foreground_color,
             }}
           >
             <h2>{themeData.name}</h2>
-            <p style={{ margin: "1rem 0" }}>
+            <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Sed do eiusmod tempor incididunt ut labore et dolore
               magna aliqua.
             </p>
-            <div style={{ marginBottom: "1em" }}>
-              <p>
-                created:{" "}
-                {new Date(themeData.created).toLocaleString()}
-              </p>
-              <p>
-                updated:{" "}
-                {new Date(themeData.updated).toLocaleString()}
-              </p>
-            </div>
+            <dl>
+              <dt>created</dt>
+              <dd>{new Date(themeData.created).toLocaleString()}</dd>
+              <dt>updated</dt>
+              <dd>{new Date(themeData.updated).toLocaleString()}</dd>
+            </dl>
             <button
               onClick={() => handleThemeChange(themeId)}
               style={{
