@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveThemeId, fetchThemes } from "./features/uiSlice";
+import { fetchThemes } from "./features/uiSlice";
 
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
+import ThemeSection from "./components/ThemeSection";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,48 +29,17 @@ const App = () => {
   }, [activeThemeId, theme]);
 
   const handleFetchThemes = () => dispatch(fetchThemes());
-  const handleThemeChange = (themeId) => {
-    dispatch(setActiveThemeId(Number(themeId)));
-  };
-
   return (
     <>
       <HeaderBar />
       <button onClick={handleFetchThemes}>fetch themes!</button>
       {themes &&
         themes.map(([themeId, themeData]) => (
-          <section
-            className="theme-section"
+          <ThemeSection
             key={themeId}
-            style={{
-              backgroundColor: themeData.background_color,
-              color: themeData.foreground_color,
-              borderColor: themeData.foreground_color,
-            }}
-          >
-            <h2>{themeData.name}</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <dl>
-              <dt>created</dt>
-              <dd>{new Date(themeData.created).toLocaleString()}</dd>
-              <dt>updated</dt>
-              <dd>{new Date(themeData.updated).toLocaleString()}</dd>
-            </dl>
-            <button
-              onClick={() => handleThemeChange(themeId)}
-              style={{
-                backgroundColor: themeData.background_color,
-                color: themeData.foreground_color,
-                borderColor: themeData.foreground_color,
-              }}
-            >
-              apply {themeData.name} theme
-            </button>
-          </section>
+            themeId={Number(themeId)}
+            themeData={themeData}
+          />
         ))}
       <main>
         <article>
