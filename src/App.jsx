@@ -21,9 +21,18 @@ const App = () => {
     );
   }, [theme]);
 
+  const handleFetchThemes = async () => {
+    console.log("hi");
+    const response = await fetch("/api/csrf-token");
+    const json = await response.json();
+    console.log("json");
+    console.log(json);
+  };
+
   return (
     <>
       <HeaderBar />
+      <button onClick={handleFetchThemes}>fetch themes!</button>
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>
