@@ -1,34 +1,38 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveTheme, updateThemeField } from "./features/uiSlice";
 
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
 
 const App = () => {
-  const { theme } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+  const { activeTheme, theme } = useSelector((state) => state.ui);
+
+  const themes = Object.entries(theme);
+
+  const applyTheme = (theme) => {
+    const cssVars = {
+      "--foreground-color": theme.foreground_color,
+      "--background-color": theme.background_color,
+    };
+
+    Object.entries(cssVars).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
+  };
 
   useEffect(() => {
-    if (!theme) return;
-    const activeTheme = theme[theme.active];
-    const foreground = activeTheme["foreground_color"];
-    const background = theme["background_color"];
-    document.documentElement.style.setProperty(
-      "--foreground-color",
-      foreground,
-    );
-
-    document.documentElement.style.setProperty(
-      "--background-color",
-      background,
-    );
-  }, [theme]);
+    if (!(activeTheme && theme)) return;
+    applyTheme(theme[activeTheme]);
+  }, [activeTheme, theme]);
 
   const handleFetchThemes = async () => {
-    console.log("hi");
     const response = await fetch("/api/theme");
     const json = await response.json();
-    console.log("json");
-    console.log(json);
+    if (!json) throw json;
+    const themeField = json;
+    dispatch(updateThemeField(themeField));
     /*
 {'theme': {'1': {'background_color': '#111',
                  'created': '2025-01-18T01:33:12.661973',
@@ -47,10 +51,23 @@ const App = () => {
       */
   };
 
+  const handleThemeChange = (themeId) => {
+    dispatch(setActiveTheme(Number(themeId)));
+  };
+
   return (
     <>
       <HeaderBar />
       <button onClick={handleFetchThemes}>fetch themes!</button>
+      {themes &&
+        themes.map(([themeId, themeData]) => (
+          <button
+            key={themeId}
+            onClick={() => handleThemeChange(themeId)}
+          >
+            {themeData.name}
+          </button>
+        ))}
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>

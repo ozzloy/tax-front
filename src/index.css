@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: inherit;
+    background-color: inherit;
 }
 
 ul,
@@ -19,7 +21,7 @@ button {
 /* set the foreground and background color variables */
 @property --foreground-color {
     syntax: '<color>';
-    initial-value: whitesmoke;
+    initial-value: chartreuse;
     inherits: true;
 }
 @property --background-color {
@@ -29,9 +31,8 @@ button {
 }
 
 :root {
-    --foreground-color: whitesmoke;
-    --background-color: #111;
-    transition: --foreground-color 0.5s ease, --background-color 0.5s ease;
+    transition: --foreground-color 0.5s ease,
+                --background-color 0.5s ease;
 }
 
 :root {
@@ -62,20 +63,19 @@ header nav h1 {
 
 button {
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 1px solid var(--foreground-color);
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
-    transition: border-color 0.25s;
-    border-color: var(--foreground-color);
+    transition: box-shadow 0.2s ease;
 }
 
 button:focus,
 button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: none;
+    box-shadow: inset 0 0 0 4px var(--foreground-color);
 }
 
 @media (prefers-color-scheme: light) {
