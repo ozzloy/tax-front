@@ -1,13 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { setCurrentModal, toggleTheme } from "../../features/uiSlice";
+import { setCurrentModal } from "../../features/uiSlice";
 import Modal from "../Modal";
 import "./HeaderBar.css";
 
 const HeaderBar = () => {
   const dispatch = useDispatch();
   const { currentModal } = useSelector((state) => state.ui);
-  const handleToggleTheme = () => dispatch(toggleTheme());
 
   const handleAuthOptionsClick = () => {
     dispatch(setCurrentModal("auth"));
@@ -26,7 +25,6 @@ const HeaderBar = () => {
         >
           <h2>hello from modal!</h2>
           <p>this is a simple modal</p>
-          <button onClick={handleToggleTheme}>change theme</button>
         </Modal>
       </nav>
     </header>
