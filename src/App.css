@@ -7,7 +7,7 @@ main {
     padding: 1em;
 }
 
-/* theme selector */
+/* theme section */
 
 .theme-section {
     padding: 1em;
@@ -15,6 +15,8 @@ main {
     border-radius: 8px;
     border-width: 1px;
     border-style: solid;
+
+    position: relative;
 }
 
 .theme-section p {
@@ -33,5 +35,9 @@ main {
 }
 
 .theme-section button {
-    margin-top: 0.5em;
+    /* margin-top: 0.5em; */
+
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
 }
