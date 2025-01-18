@@ -6,6 +6,7 @@ import {
   setActiveThemeId,
   fetchThemes,
 } from "../../features/uiSlice";
+import "./ThemeSection.css";
 
 const ThemeSection = ({ themeId, themeData }) => {
   const dispatch = useDispatch();

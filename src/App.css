@@ -6,38 +6,3 @@
 main {
     padding: 1em;
 }
-
-/* theme section */
-
-.theme-section {
-    padding: 1em;
-    margin: 1em;
-    border-radius: 8px;
-    border-width: 1px;
-    border-style: solid;
-
-    position: relative;
-}
-
-.theme-section p {
-    margin-bottom: 1em;
-}
-
-.theme-section dl {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.5em;
-    margin-bottom: 1em;
-}
-
-.theme-section dt {
-    font-weight: bold;
-}
-
-.theme-section button {
-    /* margin-top: 0.5em; */
-
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-}
