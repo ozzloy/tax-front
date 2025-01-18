@@ -9,20 +9,20 @@ export const fetchThemes = createAsyncThunk(
     if (!json) throw json;
     return json;
     /*
-    {'theme': {'1': {'background_color': '#111',
-                    'created': '2025-01-18T01:33:12.661973',
-                    'id': 1,
-                    'king_id': None,
-                    'name': 'night',
-                    'foreground_color': 'chartreuse',
-                    'updated': '2025-01-18T01:33:12.661983'},
-              '2': {'background_color': 'black',
-                    'created': '2025-01-18T01:33:12.663992',
-                    'id': 2,
-                    'king_id': None,
-                    'name': 'light',
-                    'foreground_color': '#111111',
-                    'updated': '2025-01-18T01:33:12.663995'}}}
+      {'theme': {'1': {'background_color': '#111',
+                      'created': '2025-01-18T01:33:12.661973',
+                      'id': 1,
+                      'king_id': None,
+                      'name': 'night',
+                      'foreground_color': 'chartreuse',
+                      'updated': '2025-01-18T01:33:12.661983'},
+                '2': {'background_color': 'black',
+                      'created': '2025-01-18T01:33:12.663992',
+                      'id': 2,
+                      'king_id': None,
+                      'name': 'light',
+                      'foreground_color': '#111111',
+                      'updated': '2025-01-18T01:33:12.663995'}}}
       */
   },
 );
