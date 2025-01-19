@@ -15,20 +15,16 @@ const Header = () => {
 
   return (
     <header className="header">
-      <nav>
-        <h1>tax front</h1>
-        <button onClick={handleAuthOptionsClick}>
-          login / signup
-        </button>
-        <Modal
-          isOpen={currentModal == "auth"}
-          onClose={() => dispatch(setCurrentModal(null))}
-        >
-          <Login />
-          <h3>new?</h3>
-          <button>sign up</button>
-        </Modal>
-      </nav>
+      <h1>tax front</h1>
+      <button onClick={handleAuthOptionsClick}>login / signup</button>
+      <Modal
+        isOpen={currentModal == "auth"}
+        onClose={() => dispatch(setCurrentModal(null))}
+      >
+        <Login />
+        <h3>new?</h3>
+        <button>sign up</button>
+      </Modal>
     </header>
   );
 };
