@@ -1,13 +1,21 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import "./Login.css";
+import { login } from "../../store/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+
   return (
-    <section className="login-form">
+    <form onSubmit={handleLogin} className="login-form">
       <h2>enter email and password</h2>
 
       <label htmlFor="email">email</label>
@@ -28,8 +36,8 @@ const Login = () => {
         placeholder="password"
       />
 
-      <button>sign in</button>
-    </section>
+      <button type="submit">sign in</button>
+    </form>
   );
 };
 export default Login;

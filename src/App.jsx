@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchThemes } from "./store/uiSlice";
-
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
 import Themes from "./components/Themes";
+import { fetchCsrfToken } from "./store/authSlice";
+import { fetchThemes } from "./store/uiSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const App = () => {
   }, [activeThemeId, theme]);
 
   useEffect(() => {
+    dispatch(fetchCsrfToken());
     dispatch(fetchThemes());
   }, [dispatch]);
 
