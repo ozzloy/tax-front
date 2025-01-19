@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import "./Login.css";
 import { login } from "../../store/authSlice";
+import { setCurrentModal } from "../../store/uiSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+    dispatch(setCurrentModal(null));
   };
 
   return (
