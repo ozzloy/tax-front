@@ -1,3 +1,14 @@
 .nav {
+    border-right: 1px solid;
+}
+
+.nav a {
+    font-size: large;
+    display: block;
     padding: 1em;
+}
+
+.nav a.active {
+    color: var(--background-color);
+    background-color: var(--foreground-color);
 }

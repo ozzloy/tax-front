@@ -5,6 +5,7 @@
     box-sizing: border-box;
     color: inherit;
     background-color: inherit;
+    text-decoration: none;
 }
 
 ul,
@@ -53,9 +54,10 @@ body {
 }
 
 #root {
-    padding: 1em;
+    min-height: 100vh;
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
         "header header"
         "nav    main  ";
