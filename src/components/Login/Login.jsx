@@ -38,7 +38,7 @@ const Login = () => {
         placeholder="password"
       />
 
-      <button type="submit">sign in</button>
+      <button type="submit">login</button>
     </form>
   );
 };
