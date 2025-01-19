@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { setActiveThemeId } from "../../features/uiSlice";
+import { setActiveThemeId } from "../../store/uiSlice";
 import "./ThemeSection.css";
 
 const ThemeSection = ({ themeId, themeData }) => {

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import { setCurrentModal } from "../../features/uiSlice";
+import { setCurrentModal } from "../../store/uiSlice";
 import Modal from "../Modal";
 import "./HeaderBar.css";
 import Login from "../Login";

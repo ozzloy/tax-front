@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchThemes } from "./features/uiSlice";
+
+import { fetchThemes } from "./store/uiSlice";
 
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
