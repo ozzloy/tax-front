@@ -4,6 +4,12 @@ const Nav = () => {
   return (
     <nav className="nav">
       <NavLink
+        to="/home"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        home
+      </NavLink>
+      <NavLink
         to="/human"
         className={({ isActive }) => (isActive ? "active" : "")}
       >

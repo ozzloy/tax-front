@@ -1,3 +1,36 @@
+* TODO make signup
+[2025-01-19 Sun 12:27 -0800]
+** TODO make signup modal
+** TODO make submitting modal create new user
+** TODO make submitting signup modal bring up login modal
+* make all the frontend
+[2025-01-19 Sun 12:31 -0800]
+** TODO make theme
+*** TODO make theme form
+*** TODO display existing themes
+*** TODO make theme update form
+*** TODO make theme delete button
+** TODO make human
+*** TODO make human form
+*** TODO display existing humans
+*** TODO make human update form
+*** TODO make human delete button
+** TODO make address
+*** TODO make address form
+*** TODO display existing addresses
+*** TODO make address update form
+*** TODO make address delete button
+** TODO make 1040
+*** TODO make 1040 form
+*** TODO display existing 1040es
+*** TODO make 1040 update form
+*** TODO make 1040 delete button
+* TODO add display of high level info
+[2025-01-19 Sun 13:13 -0800]
+on human, address, 1040, theme to home
+
+* TODO add "curious? login as demo user"
+[2025-01-19 Sun 12:27 -0800]
 * TODO investigate moving #root from div up to body
 [2025-01-19 Sun 11:21 -0800]
 * TODO make script to update existing deployment
@@ -13,3 +46,7 @@ CLOSED: [2025-01-17 Fri]
 * DONE deploy on each.do
 CLOSED: [2025-01-19 Sun]
 [2025-01-16 Thu 11:35 -0800]
+* DONE rename "startup" to "home"
+CLOSED: [2025-01-19 Sun]
+[2025-01-19 Sun 12:37 -0800]
+put explanation of how to use site there.
