@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 import HeaderBar from "./components/HeaderBar";
-import Themes from "./components/Themes";
+import SideBar from "./components/SideBar";
+// import Themes from "./components/Themes";
 import { fetchCsrfToken } from "./store/authSlice";
 import { fetchThemes } from "./store/uiSlice";
 
@@ -35,7 +36,8 @@ const App = () => {
   return (
     <>
       <HeaderBar />
-      <Themes />
+      <SideBar />
+      {/* <Themes /> */}
       <main>
         <article>
           <p>fill usa tax form 1040 for entertainment purposes.</p>

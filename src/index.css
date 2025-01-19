@@ -33,9 +33,6 @@ button {
 :root {
     transition: --foreground-color 0.5s ease,
                 --background-color 0.5s ease;
-}
-
-:root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
@@ -51,9 +48,29 @@ button {
 }
 
 body {
-    display: flex;
     min-width: 420px;
     min-height: 100vh;
+}
+
+#root {
+    padding: 1em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "header header"
+        "nav    main  ";
+}
+
+#root header {
+    grid-area: header;
+}
+
+#root nav {
+    grid-area: nav;
+}
+
+#root main {
+    grid-area: main
 }
 
 header nav h1 {
