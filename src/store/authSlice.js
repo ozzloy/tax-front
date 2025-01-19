@@ -28,16 +28,23 @@ export const login = createAsyncThunk(
   },
 );
 
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.delete("/api/session/");
+      return null;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     king: null,
     csrfToken: null,
-  },
-  reducers: {
-    logout: (state) => {
-      state.king = null;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,9 +53,11 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.king = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.king = null;
       });
   },
 });
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;
