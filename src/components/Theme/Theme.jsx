@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchThemes } from "../../store/uiSlice";
 import ThemeSection from "../ThemeSection";
+import "./Theme.css";
 
-const Themes = () => {
+const Theme = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.ui);
   const themes = Object.entries(theme);
@@ -26,4 +27,4 @@ const Themes = () => {
   );
 };
 
-export default Themes;
+export default Theme;
