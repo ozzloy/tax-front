@@ -1,4 +1,4 @@
-.login-form {
+.login {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
@@ -15,38 +15,38 @@
   border-radius: 8px;
 }
 
-.login-form h2 {
+.login h2 {
   grid-area: header;
   text-align: center;
   margin: 0 0 1rem 0;
 }
 
-.login-form label[for="email"] {
+.login label[for="email"] {
   grid-area: email-label;
   align-self: center;
 }
 
-.login-form input[name="email"] {
+.login input[name="email"] {
   grid-area: email-input;
 }
 
-.login-form label[for="password"] {
+.login label[for="password"] {
   grid-area: password-label;
   align-self: center;
 }
 
-.login-form input[name="password"] {
+.login input[name="password"] {
   grid-area: password-input;
 }
 
-.login-form button {
+.login button {
   grid-area: button;
   padding: 0.5rem;
   margin-top: 1rem;
   cursor: pointer;
 }
 
-.login-form input {
+.login input {
   padding: 0.5rem;
   border: 1px solid;
   border-radius: 4px;

@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleLogin} className="login-form">
+    <form onSubmit={handleLogin} className="login">
       <h2>enter email and password</h2>
 
       <label htmlFor="email">email</label>
