@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
-import HeaderBar from "./components/HeaderBar";
+import Header from "./components/Header";
 import SideBar from "./components/SideBar";
 // import Themes from "./components/Themes";
 import { fetchCsrfToken } from "./store/authSlice";
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <>
-      <HeaderBar />
+      <Header />
       <SideBar />
       {/* <Themes /> */}
       <main>

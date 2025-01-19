@@ -2,10 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setCurrentModal } from "../../store/uiSlice";
 import Modal from "../Modal";
-import "./HeaderBar.css";
+import "./Header.css";
 import Login from "../Login";
 
-const HeaderBar = () => {
+const Header = () => {
   const dispatch = useDispatch();
   const { currentModal } = useSelector((state) => state.ui);
 
@@ -14,7 +14,7 @@ const HeaderBar = () => {
   };
 
   return (
-    <header>
+    <header className="header">
       <nav>
         <h1>tax front</h1>
         <button onClick={handleAuthOptionsClick}>
@@ -33,4 +33,4 @@ const HeaderBar = () => {
   );
 };
 
-export default HeaderBar;
+export default Header;
