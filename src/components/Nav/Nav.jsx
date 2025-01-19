@@ -1,6 +1,7 @@
-const SideBar = () => {
+import "./Nav.css";
+const Nav = () => {
   return (
-    <nav className="sidebar">
+    <nav className="nav">
       <ul>
         <li>people</li>
         <li>addresses</li>
@@ -11,4 +12,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default Nav;
