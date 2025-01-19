@@ -3,6 +3,7 @@ import "./Main.css";
 import Form1040 from "../Form1040";
 import Human from "../Human";
 import Address from "../Address";
+import Startup from "../Startup";
 import Theme from "../Theme";
 
 const Main = () => {
@@ -13,6 +14,7 @@ const Main = () => {
         <Route path="/human" element={<Human />} />
         <Route path="/address" element={<Address />} />
         <Route path="/theme" element={<Theme />} />
+        <Route path="*" element={<Startup />} />
       </Routes>
     </main>
   );
