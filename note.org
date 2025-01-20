@@ -1,10 +1,6 @@
-* TODO make signup
-[2025-01-19 Sun 12:27 -0800]
-** TODO make signup modal
-** TODO make submitting modal create new user
-** TODO make submitting signup modal bring up login modal
 * make all the frontend
 [2025-01-19 Sun 12:31 -0800]
+** TODO rename ThemeSection to ThemeDetail
 ** TODO make theme
 *** TODO make theme form
 *** TODO display existing themes
@@ -27,7 +23,9 @@
 *** TODO make 1040 delete button
 * TODO add display of high level info
 [2025-01-19 Sun 13:13 -0800]
-on human, address, 1040, theme to home
+when signed in,
+
+show high level info on human, address, 1040, theme to home
 
 * TODO add "curious? login as demo user"
 [2025-01-19 Sun 12:27 -0800]
@@ -50,3 +48,12 @@ CLOSED: [2025-01-19 Sun]
 CLOSED: [2025-01-19 Sun]
 [2025-01-19 Sun 12:37 -0800]
 put explanation of how to use site there.
+* DONE make signup
+CLOSED: [2025-01-19 Sun]
+[2025-01-19 Sun 12:27 -0800]
+** DONE make signup modal
+CLOSED: [2025-01-19 Sun]
+** DONE make submitting modal create new user
+CLOSED: [2025-01-19 Sun]
+** DONE make submitting signup modal bring up login modal
+CLOSED: [2025-01-19 Sun]

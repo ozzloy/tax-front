@@ -16,6 +16,18 @@ export const fetchCsrfToken = createAsyncThunk(
   },
 );
 
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (kingData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/api/king/", kingData);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
@@ -50,6 +62,9 @@ const authSlice = createSlice({
     builder
       .addCase(fetchCsrfToken.fulfilled, (state, action) => {
         state.csrfToken = action.payload;
+      })
+      .addCase(signup.fulfilled, (state, action) => {
+        state.king = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.king = action.payload;
