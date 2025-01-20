@@ -4,13 +4,18 @@ import { setCurrentModal } from "../../store/uiSlice";
 import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
-import { logout } from "../../store/authSlice";
+import { getKing, logout } from "../../store/authSlice";
 import Signup from "../Signup";
+import { useEffect } from "react";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { currentModal } = useSelector((state) => state.ui);
   const { king } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getKing());
+  }, [dispatch]);
 
   const handleAuthOptions = () => {
     if (king) {

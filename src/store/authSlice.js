@@ -6,6 +6,12 @@ const api = axios.create({
   withCredentials: true,
 });
 
+const getKingFromState = (state) => {
+  if (!("current_king_id" in state && "king" in state)) return null;
+  const king = state.king[state["current_king_id"]];
+  return king;
+};
+
 export const fetchCsrfToken = createAsyncThunk(
   "auth/fetchCsrfToken",
   async () => {
@@ -40,11 +46,24 @@ export const login = createAsyncThunk(
   },
 );
 
+export const getKing = createAsyncThunk(
+  "auth/getKing",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/api/king/");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
       await api.delete("/api/session/");
+      localStorage.removeItem("king");
       return null;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -52,12 +71,17 @@ export const logout = createAsyncThunk(
   },
 );
 
+const getInitialState = () => {
+  const king = localStorage.getItem("king");
+  return {
+    king: king ? JSON.parse(king) : null,
+    csrfToken: null,
+  };
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    king: null,
-    csrfToken: null,
-  },
+  initialState: getInitialState(),
   extraReducers: (builder) => {
     builder
       .addCase(fetchCsrfToken.fulfilled, (state, action) => {
@@ -70,6 +94,14 @@ const authSlice = createSlice({
         state.king = action.payload;
       })
       .addCase(logout.fulfilled, (state) => {
+        state.king = null;
+      })
+      .addCase(getKing.fulfilled, (state, action) => {
+        const king = getKingFromState(action.payload);
+        state.king = king;
+        localStorage.setItem("king", JSON.stringify(king));
+      })
+      .addCase(getKing.rejected, (state) => {
         state.king = null;
       });
   },
