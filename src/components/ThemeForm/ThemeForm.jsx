@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import colors from "color-name";
 
 import "./ThemeForm.css";
 import { addTheme, fetchThemes } from "../../store/themeSlice";
 
-const ThemeForm = () => {
+const ThemeForm = ({ closeForm }) => {
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.theme);
   const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ const ThemeForm = () => {
       return;
     }
     dispatch(fetchThemes);
-    //TODO: close theme form
+    closeForm();
   };
 
   return (
@@ -98,6 +99,10 @@ const ThemeForm = () => {
       </button>
     </form>
   );
+};
+
+ThemeForm.propTypes = {
+  closeForm: PropTypes.func.isRequired,
 };
 
 export default ThemeForm;

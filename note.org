@@ -1,19 +1,22 @@
-* TODO navigate home for everything when anonymous
-[2025-01-20 Mon 08:29 -0800]
-* TODO blur nav, except home, when anonymous
-[2025-01-20 Mon 08:29 -0800]
-* TODO make theme form go away once new theme is added
-[2025-01-20 Mon 07:49 -0800]
-* TODO make "new theme" button
-[2025-01-20 Mon 07:49 -0800]
-show new theme form when "new theme" button is clicked
-* TODO make new theme preview box
-[2025-01-20 Mon 07:49 -0800]
+* TODO fix theme change when navigate to theme page
+[2025-01-20 Mon 13:03 -0800]
+currently, it resets the theme to match system theme.
+
+steps to reproduce
+  + go to theme page
+  + select non default theme
+    + selected theme is applied
+  + go to home page (any other page, not theme page)
+  + go back to theme page
+    + theme that matches system light/dark is applied
+
 * TODO make all the frontend
 [2025-01-19 Sun 12:31 -0800]
 ** TODO make theme
-*** TODO make theme form
-*** TODO display existing themes
+*** DONE make theme form
+CLOSED: [2025-01-20 Mon]
+*** DONE display existing themes
+CLOSED: [2025-01-20 Mon]
 *** TODO make theme update form
 *** TODO make theme delete button
 ** TODO make human
@@ -31,8 +34,10 @@ show new theme form when "new theme" button is clicked
 *** TODO display existing 1040es
 *** TODO make 1040 update form
 *** TODO make 1040 delete button
-** DONE rename ThemeSection to ThemeDetail
-CLOSED: [2025-01-19 Sun]
+* TODO centralize theme select logic
+[2025-01-20 Mon 11:35 -0800]
+ThemeSelector and Header components have similar code for determining
+what color theme to use.
 * TODO add display of high level info
 [2025-01-19 Sun 13:13 -0800]
 when signed in,
@@ -47,6 +52,28 @@ show high level info on human, address, 1040, theme to home
 [2025-01-17 Fri 11:13 -0800]
 * TODO make a system user to run front and back
 [2025-01-17 Fri 10:34 -0800]
+* TODO make new theme preview box
+[2025-01-20 Mon 07:49 -0800]
+* DONE make "new theme" button
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 07:49 -0800]
+show new theme form when "new theme" button is clicked
+* DONE make theme form go away once new theme is added
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 07:49 -0800]
+* DONE blur nav, except home, when anonymous
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 08:29 -0800]
+not doing this.  instead, just not showing the options at all
+* DONE put close button in upper right of new theme form
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 13:00 -0800]
+not doing it.  instead "new theme" button changes to "close"
+* DONE rename ThemeSection to ThemeDetail
+CLOSED: [2025-01-19 Sun]
+* DONE navigate home for everything when anonymous
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 08:29 -0800]
 * DONE click "logout" should navigate to home page
 CLOSED: [2025-01-20 Mon]
 [2025-01-20 Mon 08:29 -0800]

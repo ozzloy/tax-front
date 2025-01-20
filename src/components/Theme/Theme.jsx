@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchThemes } from "../../store/themeSlice";
@@ -8,25 +8,36 @@ import "./Theme.css";
 
 const Theme = () => {
   const { theme } = useSelector((state) => state.theme);
+  const [showThemeForm, setShowThemeForm] = useState(false);
   const dispatch = useDispatch();
   const themes = Object.entries(theme);
+  const toggleShowThemeForm = () => {
+    setShowThemeForm(!showThemeForm);
+  };
 
   useEffect(() => {
     dispatch(fetchThemes());
   }, [dispatch]);
 
   return (
-    <section className="themes-section">
-      <ThemeForm />
-      {themes &&
-        themes.map(([themeId, themeData]) => (
-          <ThemeDetail
-            key={themeId}
-            themeId={Number(themeId)}
-            themeData={themeData}
-          />
-        ))}
-    </section>
+    <>
+      <button onClick={toggleShowThemeForm}>
+        {showThemeForm ? "close new theme" : "new theme"}
+      </button>
+      {showThemeForm && (
+        <ThemeForm closeForm={() => setShowThemeForm(false)} />
+      )}
+      <section className="themes-section">
+        {themes &&
+          themes.map(([themeId, themeData]) => (
+            <ThemeDetail
+              key={themeId}
+              themeId={Number(themeId)}
+              themeData={themeData}
+            />
+          ))}
+      </section>
+    </>
   );
 };
 
