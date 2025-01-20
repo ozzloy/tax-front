@@ -7,13 +7,14 @@ import ThemeForm from "../ThemeForm";
 import "./Theme.css";
 
 const Theme = () => {
-  const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
   const themes = Object.entries(theme);
 
   useEffect(() => {
     dispatch(fetchThemes());
-  }, []);
+  }, [dispatch]);
+
   return (
     <section className="themes-section">
       <ThemeForm />

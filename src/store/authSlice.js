@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
-const api = axios.create({
+export const api = axios.create({
   withCredentials: true,
 });
 
