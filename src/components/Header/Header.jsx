@@ -24,11 +24,24 @@ const Header = () => {
     dispatch(getKing());
   }, [dispatch]);
 
-  const findLowestSystemThemeId = (themes) => {
-    const systemThemes = Object.values(themes)
-      .filter((theme) => theme.king_id === null)
-      .sort((a, b) => a.id - b.id);
-    return systemThemes[0]?.id;
+  const findSystemThemeId = (themes, themeName) => {
+    const systemThemes = Object.values(themes).filter(
+      (theme) => theme.king_id === null,
+    );
+    return systemThemes.find((theme) => theme.name === themeName)?.id;
+  };
+
+  const setUserPreferredTheme = () => {
+    if (!themes) return;
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)",
+    ).matches;
+    const preferredThemeName = prefersLight ? "light" : "night";
+
+    const themeId = findSystemThemeId(themes, preferredThemeName);
+    if (themeId) {
+      dispatch(setActiveThemeId(themeId));
+    }
   };
 
   const handleAuthOptions = async () => {
@@ -36,10 +49,7 @@ const Header = () => {
       const result = await dispatch(logout());
       if (logout.fulfilled.match(result)) {
         await dispatch(fetchThemes());
-        const lowestSystemThemeId = findLowestSystemThemeId(themes);
-        if (lowestSystemThemeId) {
-          dispatch(setActiveThemeId(lowestSystemThemeId));
-        }
+        setUserPreferredTheme();
         navigate("/home");
       }
     } else {

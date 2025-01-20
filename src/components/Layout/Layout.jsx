@@ -5,6 +5,8 @@ import Nav from "../Nav";
 import { useEffect } from "react";
 import { fetchThemes } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
+import ThemeSelector from "../ThemeSelector";
+
 const Layout = () => {
   const dispatch = useDispatch();
   const { activeThemeId } = useSelector((state) => state.ui);
@@ -25,12 +27,15 @@ const Layout = () => {
     if (!(activeThemeId && theme)) return;
     applyTheme(theme[activeThemeId]);
   }, [activeThemeId, theme]);
+
   useEffect(() => {
     dispatch(fetchCsrfToken());
     dispatch(fetchThemes());
   }, [dispatch]);
+
   return (
     <>
+      <ThemeSelector />
       <Header />
       <Nav />
       <Main />
