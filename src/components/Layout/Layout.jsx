@@ -3,11 +3,12 @@ import Header from "../Header";
 import Main from "../Main/Main";
 import Nav from "../Nav";
 import { useEffect } from "react";
-import { fetchThemes } from "../../store/uiSlice";
+import { fetchThemes } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
 const Layout = () => {
   const dispatch = useDispatch();
-  const { activeThemeId, theme } = useSelector((state) => state.ui);
+  const { activeThemeId } = useSelector((state) => state.ui);
+  const { theme } = useSelector((state) => state.theme);
 
   const applyTheme = (theme) => {
     const cssVars = {

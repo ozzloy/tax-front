@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchThemes } from "../../store/uiSlice";
+import { fetchThemes } from "../../store/themeSlice";
 import ThemeDetail from "../ThemeDetail";
 import ThemeForm from "../ThemeForm";
 import "./Theme.css";
 
 const Theme = () => {
-  const { theme } = useSelector((state) => state.ui);
+  const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const themes = Object.entries(theme);
 

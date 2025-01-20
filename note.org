@@ -1,5 +1,9 @@
-* TODO move theme stuff from ui to theme slice
-[2025-01-20 Mon 06:49 -0800]
+* TODO click "logout" should navigate to home page
+[2025-01-20 Mon 08:29 -0800]
+* TODO navigate home for everything when anonymous
+[2025-01-20 Mon 08:29 -0800]
+* TODO blur nav, except home, when anonymous
+[2025-01-20 Mon 08:29 -0800]
 * TODO make theme form go away once new theme is added
 [2025-01-20 Mon 07:49 -0800]
 * TODO make "new theme" button
@@ -71,3 +75,6 @@ CLOSED: [2025-01-19 Sun]
 CLOSED: [2025-01-19 Sun]
 ** DONE make submitting signup modal bring up login modal
 CLOSED: [2025-01-19 Sun]
+* DONE move theme stuff from ui to theme slice
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 06:49 -0800]

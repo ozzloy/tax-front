@@ -3,8 +3,7 @@ import { useState } from "react";
 import colors from "color-name";
 
 import "./ThemeForm.css";
-import { addTheme } from "../../store/themeSlice";
-import { fetchThemes } from "../../store/uiSlice";
+import { addTheme, fetchThemes } from "../../store/themeSlice";
 
 const ThemeForm = () => {
   const dispatch = useDispatch();
