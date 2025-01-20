@@ -1,6 +1,9 @@
-* make all the frontend
+* TODO make login persist
+[2025-01-19 Sun 17:09 -0800]
+after logging in, refreshing seems to forget my login
+
+* TODO make all the frontend
 [2025-01-19 Sun 12:31 -0800]
-** TODO rename ThemeSection to ThemeDetail
 ** TODO make theme
 *** TODO make theme form
 *** TODO display existing themes
@@ -21,6 +24,8 @@
 *** TODO display existing 1040es
 *** TODO make 1040 update form
 *** TODO make 1040 delete button
+** DONE rename ThemeSection to ThemeDetail
+CLOSED: [2025-01-19 Sun]
 * TODO add display of high level info
 [2025-01-19 Sun 13:13 -0800]
 when signed in,

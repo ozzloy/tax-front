@@ -2,16 +2,16 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 import { setActiveThemeId } from "../../store/uiSlice";
-import "./ThemeSection.css";
+import "./ThemeDetail.css";
 
-const ThemeSection = ({ themeId, themeData }) => {
+const ThemeDetail = ({ themeId, themeData }) => {
   const dispatch = useDispatch();
   const handleThemeChange = (themeId) => {
     dispatch(setActiveThemeId(themeId));
   };
   return (
     <section
-      className="theme-section"
+      className="theme-detail"
       style={{
         backgroundColor: themeData.background_color,
         color: themeData.foreground_color,
@@ -43,7 +43,7 @@ const ThemeSection = ({ themeId, themeData }) => {
   );
 };
 
-ThemeSection.propTypes = {
+ThemeDetail.propTypes = {
   themeId: PropTypes.number.isRequired,
   themeData: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -54,4 +54,4 @@ ThemeSection.propTypes = {
   }).isRequired,
 };
 
-export default ThemeSection;
+export default ThemeDetail;

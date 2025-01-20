@@ -1,4 +1,4 @@
-.theme-section {
+.theme-detail {
     padding: 1em;
     margin: 1em;
     border-radius: 8px;
@@ -8,22 +8,22 @@
     position: relative;
 }
 
-.theme-section p {
+.theme-detail p {
     margin-bottom: 1em;
 }
 
-.theme-section dl {
+.theme-detail dl {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.5em;
     margin-bottom: 1em;
 }
 
-.theme-section dt {
+.theme-detail dt {
     font-weight: bold;
 }
 
-.theme-section button {
+.theme-detail button {
     position: absolute;
     bottom: 1em;
     right: 1em;

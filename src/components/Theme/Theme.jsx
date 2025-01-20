@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchThemes } from "../../store/uiSlice";
-import ThemeSection from "../ThemeSection";
+import ThemeDetail from "../ThemeDetail";
+import ThemeForm from "../ThemeForm";
 import "./Theme.css";
 
 const Theme = () => {
@@ -15,9 +16,10 @@ const Theme = () => {
   }, []);
   return (
     <section className="themes-section">
+      <ThemeForm />
       {themes &&
         themes.map(([themeId, themeData]) => (
-          <ThemeSection
+          <ThemeDetail
             key={themeId}
             themeId={Number(themeId)}
             themeData={themeData}
