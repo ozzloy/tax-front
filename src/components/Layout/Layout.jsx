@@ -1,16 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../Header";
-import Main from "../Main/Main";
-import Nav from "../Nav";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
+import Header from "../Header";
+import Main from "../Main";
+import Nav from "../Nav";
 import { fetchThemes } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
 import ThemeSelector from "../ThemeSelector";
 
 const Layout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { activeThemeId } = useSelector((state) => state.ui);
   const { theme } = useSelector((state) => state.theme);
+  const { king } = useSelector((state) => state.auth);
 
   const applyTheme = (theme) => {
     const cssVars = {
@@ -22,6 +27,13 @@ const Layout = () => {
       document.documentElement.style.setProperty(key, value);
     });
   };
+
+  useEffect(() => {
+    const publicPaths = ["/home", "/"];
+    if (!king && !publicPaths.includes(location.pathname)) {
+      navigate("/home", { replace: true });
+    }
+  }, [king, location.pathname, navigate]);
 
   useEffect(() => {
     if (!(activeThemeId && theme)) return;
