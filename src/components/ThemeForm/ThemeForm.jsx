@@ -2,7 +2,7 @@ import "./ThemeForm.css";
 
 const ThemeForm = () => {
   return (
-    <form className="theme">
+    <form className="theme-form">
       <h2>theme</h2>
 
       <label>name</label>
