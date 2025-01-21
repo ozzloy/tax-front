@@ -19,12 +19,12 @@ const HumanDetail = ({ humanId, humanData }) => {
   return (
     <section className="human-detail">
       <h2>
-        {humanData.first_name} {humanData.last_name}
+        {humanData.first_name}{" "}
+        {humanData.middle_initial &&
+          humanData.middle_initial.length === 1 &&
+          `${humanData.middle_initial}. `}
+        {humanData.last_name}
       </h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-        do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
       <dl>
         <dt>created</dt>
         <dd>{new Date(humanData.created).toLocaleString()}</dd>

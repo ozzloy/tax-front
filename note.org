@@ -1,20 +1,30 @@
 * TODO make all the frontend
 [2025-01-19 Sun 12:31 -0800]
-** TODO make human
-*** TODO make human form
-*** TODO display existing humans
-*** TODO make human update form
-*** TODO make human delete button
-** TODO make address
-*** TODO make address form
-*** TODO display existing addresses
-*** TODO make address update form
-*** TODO make address delete button
 ** TODO make 1040
 *** TODO make 1040 form
 *** TODO display existing 1040es
 *** TODO make 1040 update form
 *** TODO make 1040 delete button
+** DONE make human
+** DONE make address
+CLOSED: [2025-01-20 Mon]
+*** DONE make address form
+CLOSED: [2025-01-20 Mon]
+*** DONE display existing addresses
+CLOSED: [2025-01-20 Mon]
+*** DONE make address update form
+CLOSED: [2025-01-20 Mon]
+*** DONE make address delete button
+CLOSED: [2025-01-20 Mon]
+CLOSED: [2025-01-20 Mon]
+*** DONE make human form
+CLOSED: [2025-01-20 Mon]
+*** DONE display existing humans
+CLOSED: [2025-01-20 Mon]
+*** DONE make human update form
+CLOSED: [2025-01-20 Mon]
+*** DONE make human delete button
+CLOSED: [2025-01-20 Mon]
 ** DONE make theme
 CLOSED: [2025-01-20 Mon]
 *** DONE make theme form

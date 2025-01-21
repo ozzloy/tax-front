@@ -1,0 +1,32 @@
+.address-detail {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+
+    position: relative;
+}
+
+.address-detail p {
+    margin-bottom: 1em;
+}
+
+.address-detail dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+.address-detail dt {
+    font-weight: bold;
+}
+
+.address-detail-buttons {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    display: flex;
+    gap: 0.5em;
+}
