@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveThemeId } from "../../store/uiSlice";
 import { selectCurrentKing } from "../../store/kingSlice";
@@ -8,23 +8,32 @@ const ThemeSelector = () => {
   const { theme } = useSelector((state) => state.theme);
   const king = useSelector(selectCurrentKing);
 
-  const mediaQuery = () =>
-    window.matchMedia("(prefers-color-scheme: light)");
-  const isLight = () => mediaQuery().matches;
-  const systemThemeName = () => (isLight() ? "light" : "night");
-  const systemTheme = (theme) =>
-    Object.values(theme).find(
-      (theme) =>
-        theme.king_id === null && theme.name === systemThemeName(),
-    );
-  const systemThemeId = (theme) => systemTheme(theme).id;
+  const mediaQuery = useCallback(
+    () => window.matchMedia("(prefers-color-scheme: light)"),
+    [],
+  );
+  const systemTheme = useCallback(
+    (theme) => {
+      const isLight = () => mediaQuery().matches;
+      const systemThemeName = () => (isLight() ? "light" : "night");
+      return Object.values(theme).find(
+        (theme) =>
+          theme.king_id === null && theme.name === systemThemeName(),
+      );
+    },
+    [mediaQuery],
+  );
+  const systemThemeId = useCallback(
+    (theme) => systemTheme(theme).id,
+    [systemTheme],
+  );
 
   useEffect(() => {
     if (!theme) return;
 
     const selectedThemeId = king?.theme_id ?? systemThemeId(theme);
     dispatch(setActiveThemeId(selectedThemeId));
-  }, [dispatch, king, theme]);
+  }, [dispatch, king, systemThemeId, theme]);
 
   // handle system theme changes
   useEffect(() => {
@@ -44,7 +53,7 @@ const ThemeSelector = () => {
         handleSystemThemeChange,
       );
     return remover;
-  }, [dispatch, king, theme]);
+  }, [dispatch, king, mediaQuery, systemThemeId, theme]);
 
   // use component just for logic
   return null;
