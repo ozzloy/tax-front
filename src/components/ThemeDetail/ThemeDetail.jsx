@@ -6,11 +6,27 @@ import { setActiveThemeId } from "../../store/uiSlice";
 import "./ThemeDetail.css";
 import { selectCurrentKing, updateKing } from "../../store/kingSlice";
 import ThemeForm from "../ThemeForm";
+import { deleteTheme } from "../../store/themeSlice";
 
 const ThemeDetail = ({ themeId, themeData }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const king = useSelector(selectCurrentKing);
+  const themeSlice = useSelector((state) => state.theme.theme);
+
+  const handleDeleteTheme = () => {
+    const activeThemeId = king?.theme_id;
+    dispatch(deleteTheme({ id: themeId }));
+
+    // if the current theme is the theme we're deleting,
+    if (activeThemeId === themeId) {
+      const restThemeIds = Object.keys(themeSlice)
+        .map(Number)
+        .filter((id) => id !== themeId);
+      //   choose another theme at random
+      handleApplyTheme(restThemeIds[0]);
+    }
+  };
 
   const handleApplyTheme = (themeId) => {
     dispatch(setActiveThemeId(themeId));
@@ -38,6 +54,30 @@ const ThemeDetail = ({ themeId, themeData }) => {
         <dd>{new Date(themeData.updated).toLocaleString()}</dd>
       </dl>
       <div className="theme-detail-buttons">
+        {themeData.king_id === king?.id && (
+          <>
+            <button
+              onClick={() => setShowUpdateForm(true)}
+              style={{
+                backgroundColor: themeData.background_color,
+                color: themeData.foreground_color,
+                borderColor: themeData.foreground_color,
+              }}
+            >
+              update
+            </button>
+            <button
+              onClick={handleDeleteTheme}
+              style={{
+                backgroundColor: themeData.background_color,
+                color: themeData.foreground_color,
+                borderColor: themeData.foreground_color,
+              }}
+            >
+              delete
+            </button>
+          </>
+        )}
         <button
           onClick={() => handleApplyTheme(themeId)}
           style={{
@@ -48,18 +88,6 @@ const ThemeDetail = ({ themeId, themeData }) => {
         >
           apply
         </button>
-        {themeData.king_id === king?.id && (
-          <button
-            onClick={() => setShowUpdateForm(true)}
-            style={{
-              backgroundColor: themeData.background_color,
-              color: themeData.foreground_color,
-              borderColor: themeData.foreground_color,
-            }}
-          >
-            update
-          </button>
-        )}
       </div>
       {showUpdateForm && (
         <ThemeForm

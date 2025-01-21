@@ -55,6 +55,21 @@ export const updateTheme = createAsyncThunk(
   },
 );
 
+export const deleteTheme = createAsyncThunk(
+  "theme/delete",
+  async ({ id, ...themeData }, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(
+        `/api/theme/${id}`,
+        themeData,
+      );
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const initialState = {
   status: "idle",
   error: null,
@@ -112,6 +127,18 @@ const themeSlice = createSlice({
         state.theme = merge({}, state.theme, action.payload.theme);
       })
       .addCase(updateTheme.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(deleteTheme.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.theme = Object.fromEntries(
+          Object.entries(
+            merge({}, state.theme, action.payload.theme),
+          ).filter(([, value]) => value !== null),
+        );
+      })
+      .addCase(deleteTheme.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

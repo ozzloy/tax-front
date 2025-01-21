@@ -61,7 +61,11 @@ const fulfilled = (slice, action) => {
   const payload = action.payload;
   const king = payload.king;
   const current_king_id = payload.current_king_id;
-  slice.king = merge({}, slice.king, king);
+  slice.king = Object.fromEntries(
+    Object.entries(merge({}, slice.king, king)).filter(
+      ([, value]) => value !== null,
+    ),
+  );
   slice.current_king_id = current_king_id;
   localStorage.setItem("king.king", JSON.stringify(king));
   localStorage.setItem(
