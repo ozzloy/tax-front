@@ -8,7 +8,8 @@ import { fetchThemes } from "../../store/themeSlice";
 import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
-import { getKing, logout } from "../../store/authSlice";
+import { logout } from "../../store/authSlice";
+import { readKing } from "../../store/kingSlice";
 import Signup from "../Signup";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ const Header = () => {
   const themes = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
-    dispatch(getKing());
+    dispatch(readKing());
   }, [dispatch]);
 
   const findSystemThemeId = (themes, themeName) => {

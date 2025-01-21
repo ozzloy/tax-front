@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import "./Signup.css";
 import { setCurrentModal } from "../../store/uiSlice";
 import { useState } from "react";
-import { signup } from "../../store/authSlice";
+import { createKing } from "../../store/kingSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -33,8 +33,8 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    const result = await dispatch(signup(formData));
-    if (signup.rejected.match(result)) {
+    const result = await dispatch(createKing(formData));
+    if (createKing.rejected.match(result)) {
       if (result.payload?.errors) {
         setErrors(result.payload.errors);
       } else {
