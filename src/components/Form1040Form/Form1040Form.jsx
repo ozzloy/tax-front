@@ -46,6 +46,7 @@ const Form1040Form = ({
       setFormData({
         name: initialData.name,
         tax_year: initialData.tax_year,
+        address_id: initialData.address_id,
         filing_status: initialData.filing_status,
         filer_id: initialData.filer_id,
         spouse_id: initialData.spouse_id,
