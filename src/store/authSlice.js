@@ -45,14 +45,11 @@ const authSlice = createSlice({
   initialState: { csrfToken: null },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCsrfToken.fulfilled, (state, action) => {
-        state.csrfToken = action.payload;
+      .addCase(fetchCsrfToken.fulfilled, (slice, action) => {
+        slice.csrfToken = action.payload;
       })
-      .addCase(login.fulfilled, (state, action) => {
-        state.king = action.payload;
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.king = null;
+      .addCase(logout.fulfilled, (slice) => {
+        slice.csrfToken = null;
       });
   },
 });
