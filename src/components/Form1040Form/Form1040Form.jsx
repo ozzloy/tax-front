@@ -206,6 +206,7 @@ Form1040Form.propTypes = {
     name: PropTypes.string,
     tax_year: PropTypes.number,
     filing_status: PropTypes.string,
+    address_id: PropTypes.number,
     filer_id: PropTypes.number,
     spouse_id: PropTypes.number,
     wages: PropTypes.number,
