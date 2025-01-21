@@ -18,6 +18,14 @@ const HumanDetail = ({ humanId, humanData }) => {
 
   return (
     <section className="human-detail">
+      {showUpdateForm && (
+        <HumanForm
+          closeForm={() => setShowUpdateForm(false)}
+          isUpdate={true}
+          humanId={humanId}
+          initialData={humanData}
+        />
+      )}
       <h2>
         {humanData.first_name}{" "}
         {humanData.middle_initial &&
@@ -41,14 +49,6 @@ const HumanDetail = ({ humanId, humanData }) => {
           </>
         )}
       </div>
-      {showUpdateForm && (
-        <HumanForm
-          closeForm={() => setShowUpdateForm(false)}
-          isUpdate={true}
-          humanId={humanId}
-          initialData={humanData}
-        />
-      )}
     </section>
   );
 };

@@ -18,6 +18,14 @@ const AddressDetail = ({ addressId, addressData }) => {
 
   return (
     <section className="address-detail">
+      {showUpdateForm && (
+        <AddressForm
+          closeForm={() => setShowUpdateForm(false)}
+          isUpdate={true}
+          addressId={addressId}
+          initialData={addressData}
+        />
+      )}
       <h2>
         {addressData.street} {addressData.city}
       </h2>
@@ -47,14 +55,6 @@ const AddressDetail = ({ addressId, addressData }) => {
           </>
         )}
       </div>
-      {showUpdateForm && (
-        <AddressForm
-          closeForm={() => setShowUpdateForm(false)}
-          isUpdate={true}
-          addressId={addressId}
-          initialData={addressData}
-        />
-      )}
     </section>
   );
 };

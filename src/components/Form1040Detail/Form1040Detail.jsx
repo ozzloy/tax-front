@@ -18,6 +18,14 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
 
   return (
     <section className="form1040-detail">
+      {showUpdateForm && (
+        <Form1040Form
+          closeForm={() => setShowUpdateForm(false)}
+          isUpdate={true}
+          form1040Id={form1040Id}
+          initialData={form1040Data}
+        />
+      )}
       <h2>{form1040Data.name}</h2>
       <dl>
         <dt>name</dt>
@@ -51,14 +59,6 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
           </>
         )}
       </div>
-      {showUpdateForm && (
-        <Form1040Form
-          closeForm={() => setShowUpdateForm(false)}
-          isUpdate={true}
-          form1040Id={form1040Id}
-          initialData={form1040Data}
-        />
-      )}
     </section>
   );
 };

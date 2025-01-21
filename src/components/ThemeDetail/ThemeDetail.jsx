@@ -42,6 +42,14 @@ const ThemeDetail = ({ themeId, themeData }) => {
         borderColor: themeData.foreground_color,
       }}
     >
+      {showUpdateForm && (
+        <ThemeForm
+          closeForm={() => setShowUpdateForm(false)}
+          isUpdate={true}
+          themeId={themeId}
+          initialData={themeData}
+        />
+      )}
       <h2>{themeData.name}</h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -89,14 +97,6 @@ const ThemeDetail = ({ themeId, themeData }) => {
           apply
         </button>
       </div>
-      {showUpdateForm && (
-        <ThemeForm
-          closeForm={() => setShowUpdateForm(false)}
-          isUpdate={true}
-          themeId={themeId}
-          initialData={themeData}
-        />
-      )}
     </section>
   );
 };
