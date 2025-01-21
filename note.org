@@ -1,15 +1,3 @@
-* TODO fix theme change when navigate to theme page
-[2025-01-20 Mon 13:03 -0800]
-currently, it resets the theme to match system theme.
-
-steps to reproduce
-  + go to theme page
-  + select non default theme
-    + selected theme is applied
-  + go to home page (any other page, not theme page)
-  + go back to theme page
-    + theme that matches system light/dark is applied
-
 * TODO make all the frontend
 [2025-01-19 Sun 12:31 -0800]
 ** TODO make theme
@@ -17,7 +5,8 @@ steps to reproduce
 CLOSED: [2025-01-20 Mon]
 *** DONE display existing themes
 CLOSED: [2025-01-20 Mon]
-*** TODO make theme update form
+*** DONE make theme update form
+CLOSED: [2025-01-20 Mon]
 *** TODO make theme delete button
 ** TODO make human
 *** TODO make human form
@@ -54,6 +43,19 @@ show high level info on human, address, 1040, theme to home
 [2025-01-17 Fri 10:34 -0800]
 * TODO make new theme preview box
 [2025-01-20 Mon 07:49 -0800]
+* DONE fix theme change when navigate to theme page
+CLOSED: [2025-01-20 Mon]
+[2025-01-20 Mon 13:03 -0800]
+currently, it resets the theme to match system theme.
+
+steps to reproduce
+  + go to theme page
+  + select non default theme
+    + selected theme is applied
+  + go to home page (any other page, not theme page)
+  + go back to theme page
+    + theme that matches system light/dark is applied
+
 * DONE make "new theme" button
 CLOSED: [2025-01-20 Mon]
 [2025-01-20 Mon 07:49 -0800]

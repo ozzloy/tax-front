@@ -58,7 +58,6 @@ export const deleteKing = createAsyncThunk(
 );
 
 const fulfilled = (slice, action) => {
-  console.log("action", action);
   const payload = action.payload;
   const king = payload.king;
   const current_king_id = payload.current_king_id;

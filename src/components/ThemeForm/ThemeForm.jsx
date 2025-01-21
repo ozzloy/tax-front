@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import colors from "color-name";
 
 import "./ThemeForm.css";
-import { addTheme, fetchThemes } from "../../store/themeSlice";
+import {
+  createTheme,
+  readTheme,
+  updateTheme,
+} from "../../store/themeSlice";
 
 const ThemeForm = ({ closeForm }) => {
   const dispatch = useDispatch();
@@ -50,7 +54,7 @@ const ThemeForm = ({ closeForm }) => {
       );
       return;
     }
-    dispatch(fetchThemes);
+    dispatch(readTheme());
     closeForm();
   };
 

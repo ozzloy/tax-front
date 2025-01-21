@@ -4,7 +4,7 @@ import {
   setCurrentModal,
   setActiveThemeId,
 } from "../../store/uiSlice";
-import { fetchThemes } from "../../store/themeSlice";
+import { readTheme } from "../../store/themeSlice";
 import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
@@ -49,7 +49,7 @@ const Header = () => {
     if (king) {
       const result = await dispatch(logout());
       if (logout.fulfilled.match(result)) {
-        await dispatch(fetchThemes());
+        await dispatch(readTheme());
         setUserPreferredTheme();
         navigate("/home");
       }

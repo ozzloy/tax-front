@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Header from "../Header";
 import Main from "../Main";
 import Nav from "../Nav";
-import { fetchThemes } from "../../store/themeSlice";
+import { readTheme } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
 import ThemeSelector from "../ThemeSelector";
 import { selectCurrentKing } from "../../store/kingSlice";
@@ -37,13 +37,16 @@ const Layout = () => {
   }, [king, location.pathname, navigate]);
 
   useEffect(() => {
-    if (!(activeThemeId && theme)) return;
+    if (!(activeThemeId && theme && theme[activeThemeId])) return;
     applyTheme(theme[activeThemeId]);
   }, [activeThemeId, theme]);
 
   useEffect(() => {
-    dispatch(fetchCsrfToken());
-    dispatch(fetchThemes());
+    async function fetchData() {
+      dispatch(fetchCsrfToken());
+      dispatch(readTheme());
+    }
+    fetchData();
   }, [dispatch]);
 
   return (

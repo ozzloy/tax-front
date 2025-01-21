@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchThemes } from "../../store/themeSlice";
+import { readTheme } from "../../store/themeSlice";
 import ThemeDetail from "../ThemeDetail";
 import ThemeForm from "../ThemeForm";
 import "./Theme.css";
@@ -16,7 +16,7 @@ const Theme = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchThemes());
+    dispatch(readTheme());
   }, [dispatch]);
 
   return (

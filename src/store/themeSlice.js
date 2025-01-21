@@ -3,7 +3,7 @@ import { merge } from "lodash";
 
 import { api } from "./authSlice.js";
 
-export const addTheme = createAsyncThunk(
+export const createTheme = createAsyncThunk(
   "theme/create",
   async (themeData, { rejectWithValue }) => {
     try {
@@ -15,13 +15,15 @@ export const addTheme = createAsyncThunk(
   },
 );
 
-export const fetchThemes = createAsyncThunk(
-  "theme/fetchThemes",
-  async () => {
-    const response = await fetch("/api/theme/");
-    const json = await response.json();
-    if (!json) throw json;
-    return json;
+export const readTheme = createAsyncThunk(
+  "theme/read",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/api/theme/");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
     /*
       {'theme': {'1': {'background_color': '#111',
                       'created': '2025-01-18T01:33:12.661973',
@@ -76,18 +78,18 @@ const themeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addTheme.pending, (state) => {
+      .addCase(createTheme.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(addTheme.fulfilled, (state, action) => {
+      .addCase(createTheme.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.theme = merge({}, state.theme, action.payload.theme);
       })
-      .addCase(addTheme.rejected, (state, action) => {
+      .addCase(createTheme.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(fetchThemes.fulfilled, (state, action) => {
+      .addCase(readTheme.fulfilled, (state, action) => {
         state.theme = merge({}, state.theme, action.payload.theme);
       });
   },
