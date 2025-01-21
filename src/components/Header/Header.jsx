@@ -8,7 +8,7 @@ import { readTheme } from "../../store/themeSlice";
 import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
-import { logout } from "../../store/authSlice";
+import { login, logout } from "../../store/authSlice";
 import { readKing, selectCurrentKing } from "../../store/kingSlice";
 import Signup from "../Signup";
 import { useEffect } from "react";
@@ -62,6 +62,13 @@ const Header = () => {
     dispatch(setCurrentModal("signup"));
   };
 
+  const handleCurious = () => {
+    dispatch(
+      login({ email: "bob@example.com", password: "password" }),
+    );
+    dispatch(setCurrentModal(null));
+  };
+
   return (
     <header className="header">
       <h1>tax front</h1>
@@ -75,6 +82,8 @@ const Header = () => {
         <Login />
         <h3>new?</h3>
         <button onClick={handleSignup}>sign up</button>
+        <h3>curious?</h3>
+        <button onClick={handleCurious}>try demo user</button>
       </Modal>
       <Modal
         isOpen={currentModal === "signup"}
