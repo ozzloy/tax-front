@@ -18,37 +18,40 @@ const HumanDetail = ({ humanId, humanData }) => {
 
   return (
     <section className="human-detail">
-      {showUpdateForm && (
+      {(showUpdateForm && (
         <HumanForm
           closeForm={() => setShowUpdateForm(false)}
           isUpdate={true}
           humanId={humanId}
           initialData={humanData}
         />
+      )) || (
+        <>
+          <h2>
+            {humanData.first_name}{" "}
+            {humanData.middle_initial &&
+              humanData.middle_initial.length === 1 &&
+              `${humanData.middle_initial}. `}
+            {humanData.last_name}
+          </h2>
+          <dl>
+            <dt>created</dt>
+            <dd>{new Date(humanData.created).toLocaleString()}</dd>
+            <dt>updated</dt>
+            <dd>{new Date(humanData.updated).toLocaleString()}</dd>
+          </dl>
+          <div className="human-detail-buttons">
+            {humanData.king_id === king?.id && (
+              <>
+                <button onClick={() => setShowUpdateForm(true)}>
+                  update
+                </button>
+                <button onClick={handleDeleteHuman}>delete</button>
+              </>
+            )}
+          </div>
+        </>
       )}
-      <h2>
-        {humanData.first_name}{" "}
-        {humanData.middle_initial &&
-          humanData.middle_initial.length === 1 &&
-          `${humanData.middle_initial}. `}
-        {humanData.last_name}
-      </h2>
-      <dl>
-        <dt>created</dt>
-        <dd>{new Date(humanData.created).toLocaleString()}</dd>
-        <dt>updated</dt>
-        <dd>{new Date(humanData.updated).toLocaleString()}</dd>
-      </dl>
-      <div className="human-detail-buttons">
-        {humanData.king_id === king?.id && (
-          <>
-            <button onClick={() => setShowUpdateForm(true)}>
-              update
-            </button>
-            <button onClick={handleDeleteHuman}>delete</button>
-          </>
-        )}
-      </div>
     </section>
   );
 };

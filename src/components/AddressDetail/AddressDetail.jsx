@@ -18,43 +18,46 @@ const AddressDetail = ({ addressId, addressData }) => {
 
   return (
     <section className="address-detail">
-      {showUpdateForm && (
+      {(showUpdateForm && (
         <AddressForm
           closeForm={() => setShowUpdateForm(false)}
           isUpdate={true}
           addressId={addressId}
           initialData={addressData}
         />
+      )) || (
+        <>
+          <h2>
+            {addressData.street} {addressData.city}
+          </h2>
+          <dl>
+            <dt>street</dt>
+            <dd>{addressData.street}</dd>
+            <dt>city</dt>
+            <dd>{addressData.city}</dd>
+            <dt>state</dt>
+            <dd>{addressData.state}</dd>
+            <dt>zip</dt>
+            <dd>{addressData.zip}</dd>
+          </dl>
+          <dl>
+            <dt>created</dt>
+            <dd>{new Date(addressData.created).toLocaleString()}</dd>
+            <dt>updated</dt>
+            <dd>{new Date(addressData.updated).toLocaleString()}</dd>
+          </dl>
+          <div className="address-detail-buttons">
+            {addressData.king_id === king?.id && (
+              <>
+                <button onClick={() => setShowUpdateForm(true)}>
+                  update
+                </button>
+                <button onClick={handleDeleteAddress}>delete</button>
+              </>
+            )}
+          </div>
+        </>
       )}
-      <h2>
-        {addressData.street} {addressData.city}
-      </h2>
-      <dl>
-        <dt>street</dt>
-        <dd>{addressData.street}</dd>
-        <dt>city</dt>
-        <dd>{addressData.city}</dd>
-        <dt>state</dt>
-        <dd>{addressData.state}</dd>
-        <dt>zip</dt>
-        <dd>{addressData.zip}</dd>
-      </dl>
-      <dl>
-        <dt>created</dt>
-        <dd>{new Date(addressData.created).toLocaleString()}</dd>
-        <dt>updated</dt>
-        <dd>{new Date(addressData.updated).toLocaleString()}</dd>
-      </dl>
-      <div className="address-detail-buttons">
-        {addressData.king_id === king?.id && (
-          <>
-            <button onClick={() => setShowUpdateForm(true)}>
-              update
-            </button>
-            <button onClick={handleDeleteAddress}>delete</button>
-          </>
-        )}
-      </div>
     </section>
   );
 };
