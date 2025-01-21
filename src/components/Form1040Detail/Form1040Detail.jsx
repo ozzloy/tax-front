@@ -11,6 +11,18 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const king = useSelector(selectCurrentKing);
+  const { human } = useSelector((state) => state.human);
+  const { address } = useSelector((state) => state.address);
+
+  const makeName = (human) =>
+    human &&
+    human.first_name +
+      " " +
+      (human.middle_initial ? human.middle_initial + ". " : "") +
+      human.last_name;
+  const makePlace = (address) =>
+    address &&
+    address.street + " " + address.city + " " + address.state;
 
   const handleDeleteForm1040 = () => {
     dispatch(deleteForm1040({ id: form1040Id }));
@@ -32,12 +44,18 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
         <dd>{form1040Data.name}</dd>
         <dt>tax_year</dt>
         <dd>{form1040Data.tax_year}</dd>
+        <dt>address</dt>
+        <dd>
+          {makePlace(address[form1040Data.address_id]) || "[empty]"}
+        </dd>
         <dt>filing_status</dt>
         <dd>{form1040Data.filing_status}</dd>
-        <dt>filer_id</dt>
-        <dd>{form1040Data.filer_id}</dd>
+        <dt>filer</dt>
+        <dd>{makeName(human[form1040Data.filer_id]) || "[empty]"}</dd>
         <dt>spouse_id</dt>
-        <dd>{form1040Data.spouse_id}</dd>
+        <dd>
+          {makeName(human[form1040Data.spouse_id]) || "[empty]"}
+        </dd>
         <dt>wages</dt>
         <dd>{form1040Data.wages}</dd>
         <dt>withholdings</dt>
