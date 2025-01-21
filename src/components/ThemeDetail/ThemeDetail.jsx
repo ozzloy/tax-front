@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 
 import { setActiveThemeId } from "../../store/uiSlice";
 import "./ThemeDetail.css";
+import { updateKing } from "../../store/kingSlice";
 
 const ThemeDetail = ({ themeId, themeData }) => {
   const dispatch = useDispatch();
   const handleThemeChange = (themeId) => {
     dispatch(setActiveThemeId(themeId));
+    dispatch(updateKing({ theme_id: themeId }));
   };
   return (
     <section
