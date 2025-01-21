@@ -10,6 +10,7 @@ import {
 } from "../../store/form1040Slice";
 
 const filingStatuses = [
+  null,
   "Single",
   "Married Filing Jointly",
   "Married Filing Separately",
@@ -57,9 +58,20 @@ const Form1040Form = ({
   }, [isUpdate, initialData]);
 
   const handleChange = (e) => {
+    const nullableFields = [
+      "address_id",
+      "filer_id",
+      "spouse_id",
+      "filing_status",
+    ];
+    const value =
+      nullableFields.includes(e.target.name) && e.target.value === ""
+        ? null
+        : e.target.value;
+
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     }));
   };
 
@@ -92,9 +104,8 @@ const Form1040Form = ({
 
     let result;
     if (isUpdate) {
-      result = await dispatch(
-        updateForm1040({ id: form1040Id, ...formData }),
-      );
+      const newFormData = { id: form1040Id, ...formData };
+      result = await dispatch(updateForm1040(newFormData));
     } else {
       result = await dispatch(createForm1040(formData));
     }
@@ -141,7 +152,7 @@ const Form1040Form = ({
       <label>address id</label>
       <select
         name="address_id"
-        value={formData.address_id}
+        value={formData.address_id || ""}
         onChange={handleChange}
         disabled={status === "loading"}
       >
@@ -159,10 +170,11 @@ const Form1040Form = ({
       <label>filing status</label>
       <select
         name="filing_status"
-        value={formData.filing_status}
+        value={formData.filing_status || ""}
         onChange={handleChange}
         disabled={status === "loading"}
       >
+        <option value="">leave empty</option>
         {filingStatuses.map((filingStatus) => (
           <option key={filingStatus} value={filingStatus}>
             {filingStatus}
@@ -176,7 +188,7 @@ const Form1040Form = ({
       <label>filer</label>
       <select
         name="filer_id"
-        value={formData.filer_id}
+        value={formData.filer_id || ""}
         onChange={handleChange}
         disabled={status === "loading"}
       >
@@ -194,7 +206,7 @@ const Form1040Form = ({
       <label>spouse</label>
       <select
         name="spouse_id"
-        value={formData.spouse_id}
+        value={formData.spouse_id || ""}
         onChange={handleChange}
         disabled={status === "loading"}
       >

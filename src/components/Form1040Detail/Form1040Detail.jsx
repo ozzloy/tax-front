@@ -30,53 +30,59 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
 
   return (
     <section className="form1040-detail">
-      {showUpdateForm && (
+      {(showUpdateForm && (
         <Form1040Form
           closeForm={() => setShowUpdateForm(false)}
           isUpdate={true}
           form1040Id={form1040Id}
           initialData={form1040Data}
         />
+      )) || (
+        <>
+          <h2>{form1040Data.name}</h2>
+          <dl>
+            <dt>name</dt>
+            <dd>{form1040Data.name}</dd>
+            <dt>tax_year</dt>
+            <dd>{form1040Data.tax_year}</dd>
+            <dt>address</dt>
+            <dd>
+              {makePlace(address[form1040Data.address_id]) ||
+                "[empty]"}
+            </dd>
+            <dt>filing_status</dt>
+            <dd>{form1040Data.filing_status || "[empty]"}</dd>
+            <dt>filer</dt>
+            <dd>
+              {makeName(human[form1040Data.filer_id]) || "[empty]"}
+            </dd>
+            <dt>spouse_id</dt>
+            <dd>
+              {makeName(human[form1040Data.spouse_id]) || "[empty]"}
+            </dd>
+            <dt>wages</dt>
+            <dd>{form1040Data.wages}</dd>
+            <dt>withholdings</dt>
+            <dd>{form1040Data.withholdings}</dd>
+          </dl>
+          <dl>
+            <dt>created</dt>
+            <dd>{new Date(form1040Data.created).toLocaleString()}</dd>
+            <dt>updated</dt>
+            <dd>{new Date(form1040Data.updated).toLocaleString()}</dd>
+          </dl>
+          <div className="form1040-detail-buttons">
+            {form1040Data.king_id === king?.id && (
+              <>
+                <button onClick={() => setShowUpdateForm(true)}>
+                  update
+                </button>
+                <button onClick={handleDeleteForm1040}>delete</button>
+              </>
+            )}
+          </div>
+        </>
       )}
-      <h2>{form1040Data.name}</h2>
-      <dl>
-        <dt>name</dt>
-        <dd>{form1040Data.name}</dd>
-        <dt>tax_year</dt>
-        <dd>{form1040Data.tax_year}</dd>
-        <dt>address</dt>
-        <dd>
-          {makePlace(address[form1040Data.address_id]) || "[empty]"}
-        </dd>
-        <dt>filing_status</dt>
-        <dd>{form1040Data.filing_status}</dd>
-        <dt>filer</dt>
-        <dd>{makeName(human[form1040Data.filer_id]) || "[empty]"}</dd>
-        <dt>spouse_id</dt>
-        <dd>
-          {makeName(human[form1040Data.spouse_id]) || "[empty]"}
-        </dd>
-        <dt>wages</dt>
-        <dd>{form1040Data.wages}</dd>
-        <dt>withholdings</dt>
-        <dd>{form1040Data.withholdings}</dd>
-      </dl>
-      <dl>
-        <dt>created</dt>
-        <dd>{new Date(form1040Data.created).toLocaleString()}</dd>
-        <dt>updated</dt>
-        <dd>{new Date(form1040Data.updated).toLocaleString()}</dd>
-      </dl>
-      <div className="form1040-detail-buttons">
-        {form1040Data.king_id === king?.id && (
-          <>
-            <button onClick={() => setShowUpdateForm(true)}>
-              update
-            </button>
-            <button onClick={handleDeleteForm1040}>delete</button>
-          </>
-        )}
-      </div>
     </section>
   );
 };
