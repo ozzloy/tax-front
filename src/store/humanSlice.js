@@ -98,7 +98,7 @@ const humanSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(readHuman.fulfilled, (state, action) => {
-        state.human = merge({}, state.human, action.payload.human);
+        state.human = action.payload.human;
       })
       .addCase(updateHuman.pending, (state) => {
         state.status = "loading";

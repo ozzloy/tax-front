@@ -26,7 +26,7 @@ const Form1040Form = ({
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.form1040);
   const [formData, setFormData] = useState({
-    name: `"my taxes" or "laura's taxes"`,
+    name: "my taxes",
     tax_year: 2024,
     filing_status: "Single",
     filer_id: 1,
@@ -206,7 +206,7 @@ Form1040Form.propTypes = {
     name: PropTypes.string,
     tax_year: PropTypes.number,
     filing_status: PropTypes.string,
-    filer_id: PropTypes.string,
+    filer_id: PropTypes.number,
     spouse_id: PropTypes.number,
     wages: PropTypes.number,
     withholdings: PropTypes.number,

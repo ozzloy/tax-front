@@ -92,7 +92,7 @@ const form1040Slice = createSlice({
       slice.form1040 = merge(
         {},
         slice.form1040,
-        action.payload.form1040,
+        action.payload.form_1040,
       );
     },
   },
@@ -106,7 +106,7 @@ const form1040Slice = createSlice({
         state.form1040 = merge(
           {},
           state.form1040,
-          action.payload.form1040,
+          action.payload.form_1040,
         );
       })
       .addCase(createForm1040.rejected, (state, action) => {
@@ -114,11 +114,7 @@ const form1040Slice = createSlice({
         state.error = action.payload;
       })
       .addCase(readForm1040.fulfilled, (state, action) => {
-        state.form1040 = merge(
-          {},
-          state.form1040,
-          action.payload.form1040,
-        );
+        state.form1040 = action.payload.form_1040;
       })
       .addCase(updateForm1040.pending, (state) => {
         state.status = "loading";
@@ -128,7 +124,7 @@ const form1040Slice = createSlice({
         state.form1040 = merge(
           {},
           state.form1040,
-          action.payload.form1040,
+          action.payload.form_1040,
         );
       })
       .addCase(updateForm1040.rejected, (state, action) => {
@@ -139,7 +135,7 @@ const form1040Slice = createSlice({
         state.status = "succeeded";
         state.form1040 = Object.fromEntries(
           Object.entries(
-            merge({}, state.form1040, action.payload.form1040),
+            merge({}, state.form1040, action.payload.form_1040),
           ).filter(([, value]) => value !== null),
         );
       })

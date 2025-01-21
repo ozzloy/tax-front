@@ -111,11 +111,7 @@ const addressSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(readAddress.fulfilled, (state, action) => {
-        state.address = merge(
-          {},
-          state.address,
-          action.payload.address,
-        );
+        state.address = action.payload.address;
       })
       .addCase(updateAddress.pending, (state) => {
         state.status = "loading";

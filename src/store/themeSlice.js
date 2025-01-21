@@ -117,7 +117,7 @@ const themeSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(readTheme.fulfilled, (state, action) => {
-        state.theme = merge({}, state.theme, action.payload.theme);
+        state.theme = action.payload.theme;
       })
       .addCase(updateTheme.pending, (state) => {
         state.status = "loading";
