@@ -144,6 +144,7 @@ const Form1040Form = ({
         onChange={handleChange}
         disabled={status === "loading"}
       >
+        <option value="">leave empty</option>
         {addresses.map((address) => (
           <option key={address.id} value={address.id}>
             {address.street} {address.city} {address.state}
@@ -178,6 +179,7 @@ const Form1040Form = ({
         onChange={handleChange}
         disabled={status === "loading"}
       >
+        <option value="">leave empty</option>
         {humans.map((human) => (
           <option key={human.id} value={human.id}>
             {human.first_name}{" "}
@@ -195,6 +197,7 @@ const Form1040Form = ({
         onChange={handleChange}
         disabled={status === "loading"}
       >
+        <option value="">leave empty</option>
         {humans.map((human) => (
           <option key={human.id} value={human.id}>
             {human.first_name}{" "}
