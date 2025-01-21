@@ -43,6 +43,18 @@ export const readTheme = createAsyncThunk(
   },
 );
 
+export const updateTheme = createAsyncThunk(
+  "theme/update",
+  async ({ id, ...themeData }, { rejectWithValue }) => {
+    try {
+      const response = await api.put(`/api/theme/${id}`, themeData);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const initialState = {
   status: "idle",
   error: null,
@@ -91,6 +103,17 @@ const themeSlice = createSlice({
       })
       .addCase(readTheme.fulfilled, (state, action) => {
         state.theme = merge({}, state.theme, action.payload.theme);
+      })
+      .addCase(updateTheme.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateTheme.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.theme = merge({}, state.theme, action.payload.theme);
+      })
+      .addCase(updateTheme.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });

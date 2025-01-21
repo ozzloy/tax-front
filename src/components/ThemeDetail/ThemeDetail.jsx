@@ -1,16 +1,22 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import { setActiveThemeId } from "../../store/uiSlice";
 import "./ThemeDetail.css";
-import { updateKing } from "../../store/kingSlice";
+import { selectCurrentKing, updateKing } from "../../store/kingSlice";
+import ThemeForm from "../ThemeForm";
 
 const ThemeDetail = ({ themeId, themeData }) => {
   const dispatch = useDispatch();
-  const handleThemeChange = (themeId) => {
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const king = useSelector(selectCurrentKing);
+
+  const handleApplyTheme = (themeId) => {
     dispatch(setActiveThemeId(themeId));
     dispatch(updateKing({ theme_id: themeId }));
   };
+
   return (
     <section
       className="theme-detail"
@@ -31,16 +37,38 @@ const ThemeDetail = ({ themeId, themeData }) => {
         <dt>updated</dt>
         <dd>{new Date(themeData.updated).toLocaleString()}</dd>
       </dl>
-      <button
-        onClick={() => handleThemeChange(themeId)}
-        style={{
-          backgroundColor: themeData.background_color,
-          color: themeData.foreground_color,
-          borderColor: themeData.foreground_color,
-        }}
-      >
-        apply {themeData.name} theme
-      </button>
+      <div className="theme-detail-buttons">
+        <button
+          onClick={() => handleApplyTheme(themeId)}
+          style={{
+            backgroundColor: themeData.background_color,
+            color: themeData.foreground_color,
+            borderColor: themeData.foreground_color,
+          }}
+        >
+          apply
+        </button>
+        {themeData.king_id === king?.id && (
+          <button
+            onClick={() => setShowUpdateForm(true)}
+            style={{
+              backgroundColor: themeData.background_color,
+              color: themeData.foreground_color,
+              borderColor: themeData.foreground_color,
+            }}
+          >
+            update
+          </button>
+        )}
+      </div>
+      {showUpdateForm && (
+        <ThemeForm
+          closeForm={() => setShowUpdateForm(false)}
+          isUpdate={true}
+          themeId={themeId}
+          initialData={themeData}
+        />
+      )}
     </section>
   );
 };
@@ -49,6 +77,10 @@ ThemeDetail.propTypes = {
   themeId: PropTypes.number.isRequired,
   themeData: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    king_id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([null]),
+    ]),
     background_color: PropTypes.string.isRequired,
     foreground_color: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,

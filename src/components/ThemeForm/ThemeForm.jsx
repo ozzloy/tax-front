@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import colors from "color-name";
 
@@ -10,7 +10,12 @@ import {
   updateTheme,
 } from "../../store/themeSlice";
 
-const ThemeForm = ({ closeForm }) => {
+const ThemeForm = ({
+  closeForm,
+  themeId,
+  initialData,
+  isUpdate = false,
+}) => {
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.theme);
   const [formData, setFormData] = useState({
@@ -19,6 +24,16 @@ const ThemeForm = ({ closeForm }) => {
     foreground_color: "white",
   });
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (isUpdate && initialData) {
+      setFormData({
+        name: initialData.name,
+        background_color: initialData.background_color,
+        foreground_color: initialData.foreground_color,
+      });
+    }
+  }, [isUpdate, initialData]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -44,13 +59,25 @@ const ThemeForm = ({ closeForm }) => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleAddTheme = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    const result = await dispatch(addTheme(formData));
+
+    let result;
+    if (isUpdate) {
+      result = await dispatch(
+        updateTheme({ id: themeId, ...formData }),
+      );
+    } else {
+      result = await dispatch(createTheme(formData));
+    }
+
     if (result.error) {
+      const action = isUpdate ? "update" : "create";
       setErrors(
-        result.payload?.errors || { _error: "failed to add theme" },
+        result.payload?.errors || {
+          _error: `failed to ${action} theme`,
+        },
       );
       return;
     }
@@ -59,8 +86,8 @@ const ThemeForm = ({ closeForm }) => {
   };
 
   return (
-    <form className="theme-form" onSubmit={handleAddTheme}>
-      <h2>theme</h2>
+    <form className="theme-form" onSubmit={handleSubmit}>
+      <h2>{isUpdate ? "update" : "new"} theme</h2>
 
       <label>name</label>
       <input
@@ -78,6 +105,7 @@ const ThemeForm = ({ closeForm }) => {
         placeholder="foreground color"
         name="foreground_color"
         type="color"
+        value={formData.foreground_color}
         onChange={handleChange}
         disabled={status === "loading"}
       />
@@ -91,6 +119,7 @@ const ThemeForm = ({ closeForm }) => {
         name="background_color"
         type="color"
         onChange={handleChange}
+        value={formData.background_color}
         disabled={status === "loading"}
       />
       {errors.background_color && (
@@ -99,7 +128,7 @@ const ThemeForm = ({ closeForm }) => {
 
       {errors._error && <p className="error">{errors._error}</p>}
       <button disabled={status === "loading"}>
-        {status === "loading" ? "adding" : "add"} theme
+        {isUpdate ? "update" : "add"} theme
       </button>
     </form>
   );
@@ -107,6 +136,13 @@ const ThemeForm = ({ closeForm }) => {
 
 ThemeForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
+  isUpdate: PropTypes.bool,
+  themeId: PropTypes.number,
+  initialData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    background_color: PropTypes.string.isRequired,
+    foreground_color: PropTypes.string.isRequired,
+  }),
 };
 
 export default ThemeForm;

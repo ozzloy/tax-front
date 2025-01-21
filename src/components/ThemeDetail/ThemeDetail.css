@@ -23,8 +23,10 @@
     font-weight: bold;
 }
 
-.theme-detail button {
+.theme-detail-buttons {
     position: absolute;
     bottom: 1em;
     right: 1em;
+    display: flex;
+    gap: 0.5em;
 }
