@@ -68,10 +68,17 @@ const Form1040Form = ({
         "filing status must be federally recognized";
     }
     if (formData.wages && formData.wages < 0) {
-      errors.wages = "wages must be positive";
+      errors.wages = "wages must be non-negative";
     }
     if (formData.withholdings && formData.withholdings < 0) {
-      errors.withholdings = "withholdings must be positive";
+      errors.withholdings = "withholdings must be non-negative";
+    }
+    if (
+      formData.wages &&
+      formData.withholdings &&
+      formData.wages < formData.withholdings
+    ) {
+      errors.wages = "wages must be more than withholdings";
     }
     setErrors(errors);
     return Object.keys(errors).length === 0;
