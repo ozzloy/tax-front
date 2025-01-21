@@ -1,0 +1,32 @@
+.form1040-detail {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+
+    position: relative;
+}
+
+.form1040-detail p {
+    margin-bottom: 1em;
+}
+
+.form1040-detail dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+.form1040-detail dt {
+    font-weight: bold;
+}
+
+.form1040-detail-buttons {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    display: flex;
+    gap: 0.5em;
+}

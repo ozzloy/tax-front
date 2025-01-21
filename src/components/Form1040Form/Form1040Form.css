@@ -1,0 +1,83 @@
+.form1040-form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  max-width: 400px;
+  margin: 2em;
+  padding: 2em;
+  border: 3px solid var(--foreground-color);
+  border-radius: 8px;
+}
+
+.form1040-form h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form1040-form label {
+  align-self: center;
+}
+
+.form1040-form input {
+  padding: 0.5rem;
+  border: 1px solid;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.form1040-form input:focus {
+    outline: 3px solid var(--foreground-color);
+}
+
+.form1040-form .error {
+    grid-column: 1 / -1;
+    margin: -0.25rem 0 0.25rem 0;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 10px,
+            0 0 10px,
+            0 0 10px,
+            0 0 20px,
+            0 0 30px,
+            0 0 40px
+        ;
+    }
+
+    to {
+        text-shadow:
+            0 0 10px,
+            0 0 40px,
+            0 0 90px
+        ;
+    }
+}
+
+.form1040-form button {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: var(--foreground-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form1040-form button:hover {
+    opacity: 0.9;
+}
+
+.form1040-form p {
+    grid-column: 1 / -1;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+/* for the general error message at the bottom */
+.form1040-form .error:last-of-type {
+  margin-bottom: -0.5rem;
+}

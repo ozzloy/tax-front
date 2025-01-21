@@ -46,7 +46,7 @@ const AddressForm = ({
   const validateForm = () => {
     const errors = {};
     if (![0, 2].includes(formData.state.length)) {
-      errors.middle_initial = "state must be 0 or 2 characters";
+      errors.state = "state must be 0 or 2 characters";
     }
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -113,6 +113,7 @@ const AddressForm = ({
         onChange={handleChange}
         disabled={status === "loading"}
       />
+      {errors.state && <p className="error">{errors.state}</p>}
 
       <label>zip</label>
       <input
