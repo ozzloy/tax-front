@@ -10,7 +10,6 @@ import {
 } from "../../store/form1040Slice";
 
 const filingStatuses = [
-  null,
   "Single",
   "Married Filing Jointly",
   "Married Filing Separately",
@@ -33,7 +32,7 @@ const Form1040Form = ({
   const [formData, setFormData] = useState({
     name: "my taxes",
     tax_year: 2024,
-    filing_status: "Single",
+    filing_status: "",
     filer_id: "",
     spouse_id: "",
     address_id: "",
@@ -77,7 +76,12 @@ const Form1040Form = ({
 
   const validateForm = () => {
     const errors = {};
-    if (!filingStatuses.includes(formData.filing_status)) {
+    const emptyValues = ["", null, undefined];
+    if (
+      ![...emptyValues, ...filingStatuses].includes(
+        formData.filing_status,
+      )
+    ) {
       errors.filing_status =
         "filing status must be federally recognized";
     }
