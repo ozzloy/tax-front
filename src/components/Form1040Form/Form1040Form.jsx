@@ -33,8 +33,9 @@ const Form1040Form = ({
     name: "my taxes",
     tax_year: 2024,
     filing_status: "Single",
-    filer_id: 1,
-    spouse_id: 2,
+    filer_id: "",
+    spouse_id: "",
+    address_id: "",
     wages: 20000,
     withholdings: 4000,
   });
