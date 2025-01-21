@@ -25,6 +25,10 @@ const Form1040Form = ({
 }) => {
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.form1040);
+  const { human } = useSelector((state) => state.human);
+  const humans = Object.values(human);
+  const { address } = useSelector((state) => state.address);
+  const addresses = Object.values(address);
   const [formData, setFormData] = useState({
     name: "my taxes",
     tax_year: 2024,
@@ -125,6 +129,23 @@ const Form1040Form = ({
       />
       {errors.tax_year && <p className="error">{errors.tax_year}</p>}
 
+      <label>address id</label>
+      <select
+        name="address_id"
+        value={formData.address_id}
+        onChange={handleChange}
+        disabled={status === "loading"}
+      >
+        {addresses.map((address) => (
+          <option key={address.id} value={address.id}>
+            {address.street} {address.city} {address.state}
+          </option>
+        ))}
+      </select>
+      {errors.address_id && (
+        <p className="error">{errors.address_id}</p>
+      )}
+
       <label>filing status</label>
       <select
         name="filing_status"
@@ -142,26 +163,38 @@ const Form1040Form = ({
         <p className="error">{errors.filing_status}</p>
       )}
 
-      <label>filer id</label>
-      <input
-        placeholder="1"
+      <label>filer</label>
+      <select
         name="filer_id"
-        type="number"
         value={formData.filer_id}
         onChange={handleChange}
         disabled={status === "loading"}
-      />
+      >
+        {humans.map((human) => (
+          <option key={human.id} value={human.id}>
+            {human.first_name}{" "}
+            {human.middle_initial && `${human.middle_initial}. `}
+            {human.last_name}
+          </option>
+        ))}
+      </select>
       {errors.filer_id && <p className="error">{errors.filer_id}</p>}
 
-      <label>spouse id</label>
-      <input
-        placeholder="2"
+      <label>spouse</label>
+      <select
         name="spouse_id"
-        type="number"
         value={formData.spouse_id}
         onChange={handleChange}
         disabled={status === "loading"}
-      />
+      >
+        {humans.map((human) => (
+          <option key={human.id} value={human.id}>
+            {human.first_name}{" "}
+            {human.middle_initial && `${human.middle_initial}. `}
+            {human.last_name}
+          </option>
+        ))}
+      </select>
       {errors.spouse_id && (
         <p className="error">{errors.spouse_id}</p>
       )}
