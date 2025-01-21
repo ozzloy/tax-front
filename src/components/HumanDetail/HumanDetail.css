@@ -1,0 +1,32 @@
+.human-detail {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+
+    position: relative;
+}
+
+.human-detail p {
+    margin-bottom: 1em;
+}
+
+.human-detail dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+.human-detail dt {
+    font-weight: bold;
+}
+
+.human-detail-buttons {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    display: flex;
+    gap: 0.5em;
+}

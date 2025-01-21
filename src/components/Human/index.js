@@ -1,2 +1,1 @@
-import Human from "./Human";
-export default Human;
+export { default } from "./Human";
