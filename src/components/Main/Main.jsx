@@ -7,9 +7,10 @@ import Human from "../Human";
 import Address from "../Address";
 import Home from "../Home";
 import Theme from "../Theme";
+import { selectCurrentKing } from "../../store/kingSlice";
 
 const Main = () => {
-  const { king } = useSelector((state) => state.auth);
+  const king = useSelector(selectCurrentKing);
   return (
     <main className="main">
       <Routes>

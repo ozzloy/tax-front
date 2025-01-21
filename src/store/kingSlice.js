@@ -3,6 +3,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api, login, logout } from "./authSlice";
 import { merge } from "lodash";
 
+export const selectCurrentKing = (state) => {
+  const currentKingId = state.king.current_king_id;
+  const kings = state.king.king;
+  return currentKingId && kings ? kings[currentKingId] : null;
+};
+
 export const createKing = createAsyncThunk(
   "king/create",
   async (kingData, { rejectWithValue }) => {

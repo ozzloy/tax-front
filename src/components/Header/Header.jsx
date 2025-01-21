@@ -9,7 +9,7 @@ import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
 import { logout } from "../../store/authSlice";
-import { readKing } from "../../store/kingSlice";
+import { readKing, selectCurrentKing } from "../../store/kingSlice";
 import Signup from "../Signup";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentModal } = useSelector((state) => state.ui);
-  const { king } = useSelector((state) => state.auth);
+  const king = useSelector(selectCurrentKing);
   const themes = useSelector((state) => state.theme.theme);
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import Nav from "../Nav";
 import { fetchThemes } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
 import ThemeSelector from "../ThemeSelector";
+import { selectCurrentKing } from "../../store/kingSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Layout = () => {
   const location = useLocation();
   const { activeThemeId } = useSelector((state) => state.ui);
   const { theme } = useSelector((state) => state.theme);
-  const { king } = useSelector((state) => state.auth);
+  const king = useSelector(selectCurrentKing);
 
   const applyTheme = (theme) => {
     const cssVars = {

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveThemeId } from "../../store/uiSlice";
+import { selectCurrentKing } from "../../store/kingSlice";
 
 const ThemeSelector = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
-  const king = useSelector((state) => state.auth.king);
+  const king = useSelector(selectCurrentKing);
 
   const mediaQuery = () =>
     window.matchMedia("(prefers-color-scheme: light)");

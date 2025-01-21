@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./Nav.css";
 import { useSelector } from "react-redux";
+import { selectCurrentKing } from "../../store/kingSlice";
 const Nav = () => {
-  const { king } = useSelector((state) => state.auth);
+  const king = useSelector(selectCurrentKing);
   return (
     <nav className="nav">
       <NavLink
