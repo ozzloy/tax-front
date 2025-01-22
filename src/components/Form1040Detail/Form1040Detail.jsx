@@ -1,11 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import "./Form1040Detail.css";
 import { selectCurrentKing } from "../../store/kingSlice";
 import Form1040Form from "../Form1040Form";
-import { deleteForm1040 } from "../../store/form1040Slice";
+import {
+  deleteForm1040,
+  readForm1040,
+} from "../../store/form1040Slice";
+import { PDFDocument } from "pdf-lib";
+import form1040Fields from "../../util/util";
+import { readHuman } from "../../store/humanSlice";
+import { readAddress } from "../../store/addressSlice";
+
+const spousalFilingStatuses = ["Married Filing Jointly"];
 
 const Form1040Detail = ({ form1040Id, form1040Data }) => {
   const dispatch = useDispatch();
@@ -13,6 +22,15 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
   const king = useSelector(selectCurrentKing);
   const { human } = useSelector((state) => state.human);
   const { address } = useSelector((state) => state.address);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(readHuman());
+      dispatch(readAddress());
+      dispatch(readForm1040());
+    };
+    fetchData();
+  }, [dispatch]);
 
   const makeName = (human) =>
     human &&
@@ -26,6 +44,43 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
 
   const handleDeleteForm1040 = () => {
     dispatch(deleteForm1040({ id: form1040Id }));
+  };
+
+  const handleDownloadForm1040 = async () => {
+    try {
+      const response = await fetch("/blank.pdf");
+      const pdfBytes = await response.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(pdfBytes);
+      const form = pdfDoc.getForm();
+
+      form1040Fields.forEach((field) => {
+        if (!field.value) return;
+        const value = field.value({
+          human,
+          address,
+          form1040Data,
+        });
+        if (!value) return;
+
+        if (field.type !== "PDFTextField2") return;
+        const textField = form.getTextField(field.name);
+        textField.setText(value.toString());
+      });
+      const modifiedPdfBytes = await pdfDoc.save();
+      const blob = new Blob([modifiedPdfBytes], {
+        type: "application/pdf",
+      });
+      const url = URL.createObjectURL(blob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = url;
+      downloadLink.download = "filename.pdf";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -78,6 +133,9 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
                   update
                 </button>
                 <button onClick={handleDeleteForm1040}>delete</button>
+                <button onClick={handleDownloadForm1040}>
+                  download pdf
+                </button>
               </>
             )}
           </div>

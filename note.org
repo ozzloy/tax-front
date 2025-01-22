@@ -1,3 +1,9 @@
+* TODO make local mode
+send no data to the network
+
+* TODO centralize logic to display spouse
+currently duplicated in Form1040Detail.jsx and Form1040Form.jsx
+
 * TODO centralize theme select logic
 [2025-01-20 Mon 11:35 -0800]
 ThemeSelector and Header components have similar code for determining
