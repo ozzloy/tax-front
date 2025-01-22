@@ -22,6 +22,12 @@ const filingStatuses = [
   ...nonSpousalFilingStatuses,
   ...spousalFilingStatuses,
 ];
+const nullableFields = [
+  "address_id",
+  "filer_id",
+  "spouse_id",
+  "filing_status",
+];
 
 const Form1040Form = ({
   closeForm,
@@ -68,21 +74,24 @@ const Form1040Form = ({
   }, [isUpdate, initialData]);
 
   const handleChange = (e) => {
-    const nullableFields = [
-      "address_id",
-      "filer_id",
-      "spouse_id",
-      "filing_status",
-    ];
     const value =
       nullableFields.includes(e.target.name) && e.target.value === ""
         ? null
         : e.target.value;
 
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: value,
-    }));
+    setFormData((prev) => {
+      const newFormData = {
+        ...prev,
+        [e.target.name]: value,
+      };
+      if (
+        newFormData.filing_status &&
+        nonSpousalFilingStatuses.includes(newFormData.filing_status)
+      ) {
+        delete newFormData["spouse_id"];
+      }
+      return newFormData;
+    });
   };
 
   const validateForm = () => {
@@ -101,6 +110,12 @@ const Form1040Form = ({
     }
     if (formData.withholdings && formData.withholdings < 0) {
       errors.withholdings = "withholdings must be non-negative";
+    }
+    if (
+      formData.spouse_id &&
+      formData.spouse_id === formData.filer_id
+    ) {
+      errors.spouse_id = "spouse must be different from filer";
     }
     if (
       formData.wages &&
