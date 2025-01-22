@@ -197,13 +197,18 @@ const Form1040Form = ({
         disabled={status === "loading"}
       >
         <option value="">leave empty</option>
-        {humans.map((human) => (
-          <option key={human.id} value={human.id}>
-            {human.first_name}{" "}
-            {human.middle_initial && `${human.middle_initial}. `}
-            {human.last_name}
-          </option>
-        ))}
+        {humans
+          .filter(
+            (human) =>
+              formData && formData.spouse_id !== human.id.toString(),
+          )
+          .map((human) => (
+            <option key={human.id} value={human.id}>
+              {human.first_name}{" "}
+              {human.middle_initial && `${human.middle_initial}. `}
+              {human.last_name}
+            </option>
+          ))}
       </select>
       {errors.filer_id && <p className="error">{errors.filer_id}</p>}
 
@@ -215,13 +220,18 @@ const Form1040Form = ({
         disabled={status === "loading"}
       >
         <option value="">leave empty</option>
-        {humans.map((human) => (
-          <option key={human.id} value={human.id}>
-            {human.first_name}{" "}
-            {human.middle_initial && `${human.middle_initial}. `}
-            {human.last_name}
-          </option>
-        ))}
+        {humans
+          .filter(
+            (human) =>
+              formData && formData.filer_id !== human.id.toString(),
+          )
+          .map((human) => (
+            <option key={human.id} value={human.id}>
+              {human.first_name}{" "}
+              {human.middle_initial && `${human.middle_initial}. `}
+              {human.last_name}
+            </option>
+          ))}
       </select>
       {errors.spouse_id && (
         <p className="error">{errors.spouse_id}</p>
