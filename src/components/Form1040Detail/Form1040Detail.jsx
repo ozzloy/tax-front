@@ -56,14 +56,14 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
       form1040Fields.forEach((field) => {
         if (!field.value) return;
         const value = field.value({
-          human,
-          address,
+          humanSlice: human,
+          addressSlice: address,
           form1040Data,
         });
-        if (!value) return;
+        if (value === null) return;
 
         if (field.type !== "PDFTextField2") return;
-        const textField = form.getTextField(field.name);
+        const textField = form.getTextField(field.key);
         textField.setText(value.toString());
       });
       const modifiedPdfBytes = await pdfDoc.save();
