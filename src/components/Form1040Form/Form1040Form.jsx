@@ -8,6 +8,8 @@ import {
   readForm1040,
   updateForm1040,
 } from "../../store/form1040Slice";
+import { readAddress } from "../../store/addressSlice";
+import { readHuman } from "../../store/humanSlice";
 
 const nonSpousalFilingStatuses = [
   "Single",
@@ -33,6 +35,11 @@ const Form1040Form = ({
   const humans = Object.values(human);
   const { address } = useSelector((state) => state.address);
   const addresses = Object.values(address);
+  useEffect(() => {
+    dispatch(readAddress());
+    dispatch(readHuman());
+    dispatch(readForm1040());
+  }, [dispatch]);
   const [formData, setFormData] = useState({
     name: "my taxes",
     tax_year: 2024,
