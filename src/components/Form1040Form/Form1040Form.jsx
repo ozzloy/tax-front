@@ -9,12 +9,16 @@ import {
   updateForm1040,
 } from "../../store/form1040Slice";
 
-const filingStatuses = [
+const nonSpousalFilingStatuses = [
   "Single",
-  "Married Filing Jointly",
   "Married Filing Separately",
   "Head of Household",
   "Qualifying Widow(er)",
+];
+const spousalFilingStatuses = ["Married Filing Jointly"];
+const filingStatuses = [
+  ...nonSpousalFilingStatuses,
+  ...spousalFilingStatuses,
 ];
 
 const Form1040Form = ({
@@ -212,30 +216,38 @@ const Form1040Form = ({
       </select>
       {errors.filer_id && <p className="error">{errors.filer_id}</p>}
 
-      <label>spouse</label>
-      <select
-        name="spouse_id"
-        value={formData.spouse_id || ""}
-        onChange={handleChange}
-        disabled={status === "loading"}
-      >
-        <option value="">leave empty</option>
-        {humans
-          .filter(
-            (human) =>
-              formData && formData.filer_id !== human.id.toString(),
-          )
-          .map((human) => (
-            <option key={human.id} value={human.id}>
-              {human.first_name}{" "}
-              {human.middle_initial && `${human.middle_initial}. `}
-              {human.last_name}
-            </option>
-          ))}
-      </select>
-      {errors.spouse_id && (
-        <p className="error">{errors.spouse_id}</p>
-      )}
+      {formData &&
+        formData.filing_status &&
+        spousalFilingStatuses.includes(formData.filing_status) && (
+          <>
+            <label>spouse</label>
+            <select
+              name="spouse_id"
+              value={formData.spouse_id || ""}
+              onChange={handleChange}
+              disabled={status === "loading"}
+            >
+              <option value="">leave empty</option>
+              {humans
+                .filter(
+                  (human) =>
+                    formData &&
+                    formData.filer_id !== human.id.toString(),
+                )
+                .map((human) => (
+                  <option key={human.id} value={human.id}>
+                    {human.first_name}{" "}
+                    {human.middle_initial &&
+                      `${human.middle_initial}. `}
+                    {human.last_name}
+                  </option>
+                ))}
+            </select>
+            {errors.spouse_id && (
+              <p className="error">{errors.spouse_id}</p>
+            )}
+          </>
+        )}
 
       <label>wages, form w2, box 1</label>
       <input
