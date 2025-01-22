@@ -111,10 +111,17 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
             <dd>
               {makeName(human[form1040Data.filer_id]) || "[empty]"}
             </dd>
-            <dt>spouse_id</dt>
-            <dd>
-              {makeName(human[form1040Data.spouse_id]) || "[empty]"}
-            </dd>
+            {spousalFilingStatuses.includes(
+              form1040Data.filing_status,
+            ) && (
+              <>
+                <dt>spouse</dt>
+                <dd>
+                  {makeName(human[form1040Data.spouse_id]) ||
+                    "[empty]"}
+                </dd>
+              </>
+            )}
             <dt>wages</dt>
             <dd>{form1040Data.wages}</dd>
             <dt>withholdings</dt>
