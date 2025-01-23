@@ -398,25 +398,36 @@ const form1040Fields = [
     },
   },
   {
+    line: "25a",
+    name: "withholdings",
     key: "topmostSubform[0].Page2[0].f2_11[0]",
     type: "PDFTextField2",
     label: "Federal income tax withheld from:Form(s) W-2",
+    value: ({ form1040Data }) => form1040Data.withholdings || null,
   },
   {
+    line: "25d",
     key: "topmostSubform[0].Page2[0].f2_14[0]",
     type: "PDFTextField2",
     label: "Add lines 25a through 25c",
+    value: ({ form1040Data }) => form1040Data.withholdings || null,
   },
   {
+    line: "32",
+    name: "total other payments and refundable credits",
     key: "topmostSubform[0].Page2[0].f2_21[0]",
     type: "PDFTextField2",
     label: `Add lines 27, 28, 29, and 31.
-       These are your total other payments and refundable credits`,
+            These are your total other payments and refundable credits`,
+    value: () => 0,
   },
   {
+    line: 33,
+    name: "total payments",
     key: "topmostSubform[0].Page2[0].f2_22[0]",
     type: "PDFTextField2",
     label: "Add lines 25d, 26, and 32. These are your total payments",
+    value: ({ form1040Data }) => form1040Data.withholdings || null,
   },
   {
     key: "topmostSubform[0].Page2[0].f2_23[0]",
