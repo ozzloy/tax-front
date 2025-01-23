@@ -1,7 +1,28 @@
+* TODO add birthdate
+[2025-01-22 Wed 20:40 -0800]
+need for determining whether filer was born before jan 2, 1960.
+
+or have a field for "born before jan 2, 1960"
+* TODO fix bug with 403 forbidden
+[2025-01-22 Wed 20:26 -0800]
+need to refresh csrf token after an hour, i think?
+
+* TODO add check for blind
+[2025-01-22 Wed 20:26 -0800]
+* TODO fix bug with spouse drop down displaying all humans
+[2025-01-22 Wed 20:22 -0800]
+steps to reproduce might be
++ update form
++ change filing status to non joint
++ change back to joint
++ check drop down for spouse
++ see options including filer
 * TODO make local mode
+[2025-01-22 Wed 20:22 -0800]
 send no data to the network
 
 * TODO centralize logic to display spouse
+[2025-01-22 Wed 20:22 -0800]
 currently duplicated in Form1040Detail.jsx and Form1040Form.jsx
 
 * TODO centralize theme select logic

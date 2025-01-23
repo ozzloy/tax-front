@@ -212,26 +212,41 @@ const form1040Fields = [
     key: "topmostSubform[0].Page1[0].FilingStatus_ReadOrder[0].c1_3[0]",
     type: "PDFCheckBox2",
     label: "Single",
+    value: ({ form1040Data: { filing_status } }) => {
+      return filing_status === "Single";
+    },
   },
   {
     key: "topmostSubform[0].Page1[0].FilingStatus_ReadOrder[0].c1_3[1]",
     type: "PDFCheckBox2",
     label: "Married filing jointly (even if only one had income)",
+    value: ({ form1040Data: { filing_status } }) => {
+      return filing_status === "Married Filing Jointly";
+    },
   },
   {
     key: "topmostSubform[0].Page1[0].FilingStatus_ReadOrder[0].c1_3[2]",
     type: "PDFCheckBox2",
     label: "Married filing separately (MFS)",
+    value: ({ form1040Data: { filing_status } }) => {
+      return filing_status === "Married Filing Separately";
+    },
   },
   {
     key: "topmostSubform[0].Page1[0].c1_3[0]",
     type: "PDFCheckBox2",
     label: "Head of household (HOH)",
+    value: ({ form1040Data: { filing_status } }) => {
+      return filing_status === "Head of Household";
+    },
   },
   {
     key: "topmostSubform[0].Page1[0].c1_3[1]",
     type: "PDFCheckBox2",
     label: "Qualifying surviving spouse (QSS)",
+    value: ({ form1040Data: { filing_status } }) => {
+      return filing_status === "Qualifying Widow(er)";
+    },
   },
   {
     key: "topmostSubform[0].Page1[0].c1_9[0]",

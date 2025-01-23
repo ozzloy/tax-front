@@ -55,7 +55,7 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
       const pdfDoc = await PDFDocument.load(pdfBytes);
       const form = pdfDoc.getForm();
 
-      form1040Fields.forEach((field) => {
+      form1040Fields.forEach(async (field) => {
         if (!field.value) return;
         const value = field.value({
           humanSlice: human,
@@ -67,6 +67,13 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
         if (field.type === "PDFTextField2") {
           const textField = form.getTextField(field.key);
           textField.setText(value.toString());
+        } else if (field.type === "PDFCheckBox2") {
+          const checkBoxField = form.getCheckBox(field.key);
+          if (value) {
+            await checkBoxField.check();
+          } else {
+            await checkBoxField.uncheck();
+          }
         }
       });
       const modifiedPdfBytes = await pdfDoc.save();
