@@ -430,14 +430,72 @@ const form1040Fields = [
     value: ({ form1040Data }) => form1040Data.withholdings || null,
   },
   {
+    line: 34,
+    name: "overpaid",
     key: "topmostSubform[0].Page2[0].f2_23[0]",
     type: "PDFTextField2",
-    label: "overpaid",
+    label: `If line 33 is more than line 24,
+            subtract line 24 from line 33.
+            This is the amount you overpaid`,
+    value: ({ form1040Data }) => {
+      const { tax_year, filing_status, wages } = form1040Data;
+      if (!(tax_year && filing_status && wages)) return null;
+      const line11 = wages;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
+      const line13 = 0;
+      const line14 = line12 + line13;
+      const line15 = Math.max(line11 - line14, 0);
+      const taxableIncome = line15;
+
+      const tax = getTax(tax_year, filing_status, taxableIncome);
+      const line16 = tax;
+      /* assuming nothing on lines 17 - 23 */
+      const totalTax = line16;
+      const line24 = totalTax;
+
+      const { withholdings } = form1040Data;
+      if (!withholdings) return null;
+      const line33 = withholdings;
+      if (line33 <= line24) return null;
+      const overpaid = line33 - line24;
+      const line34 = overpaid;
+      return line34;
+    },
   },
   {
     key: "topmostSubform[0].Page2[0].f2_24[0]",
     type: "PDFTextField2",
     label: "refunded to you.",
+    value: ({ form1040Data }) => {
+      const { tax_year, filing_status, wages } = form1040Data;
+      if (!(tax_year && filing_status && wages)) return null;
+      const line11 = wages;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
+      const line13 = 0;
+      const line14 = line12 + line13;
+      const line15 = Math.max(line11 - line14, 0);
+      const taxableIncome = line15;
+
+      const tax = getTax(tax_year, filing_status, taxableIncome);
+      const line16 = tax;
+      /* assuming nothing on lines 17 - 23 */
+      const totalTax = line16;
+      const line24 = totalTax;
+
+      const { withholdings } = form1040Data;
+      if (!withholdings) return null;
+      const line33 = withholdings;
+      if (line33 <= line24) return null;
+      const overpaid = line33 - line24;
+      const line34 = overpaid;
+      const refund = line34;
+      const line35a = refund;
+      return line35a;
+    },
   },
   {
     key: "topmostSubform[0].Page2[0].f2_28[0]",
