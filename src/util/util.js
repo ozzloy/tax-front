@@ -68,12 +68,15 @@ const getPairs = (a) => a.slice(0, -1).map((e, i) => [e, a[i + 1]]);
 const zip = (a, b) => a.map((e, i) => [e, b[i]]);
 
 const getTax = (tax_year, status, taxableIncome) => {
+  if (!(tax_year && status && taxableIncome)) return null;
   const { rates, allCaps } = brackets[tax_year];
+  if (!(rates && allCaps)) return null;
   const caps = allCaps[status];
+  if (!caps) return null;
   const capPairs = getPairs(caps);
+  if (!capPairs) return null;
   const rateCaps = zip(rates, capPairs);
-  console.log("taxableIncome", taxableIncome);
-  console.log("rateCaps", rateCaps);
+  if (!rateCaps) return null;
   const tax = rateCaps.reduce((total, [rate, [lo, hi]]) => {
     if (taxableIncome < lo) return total;
     hi = Math.min(hi, taxableIncome);
@@ -81,7 +84,6 @@ const getTax = (tax_year, status, taxableIncome) => {
     const newTotal = total + bracketTax;
     return newTotal;
   }, 0);
-  console.log("tax", tax);
   return tax;
 };
 
@@ -94,7 +96,9 @@ const form1040Fields = [
       const { filer_id } = form1040Data;
       if (!(filer_id && filer_id in humanSlice)) return null;
       const filer = humanSlice[filer_id];
+      if (!filer) return null;
       const { first_name, middle_initial } = filer;
+      if (!(first_name || middle_initial)) return null;
       return (
         first_name +
         (middle_initial ? " " + middle_initial + "." : "")
@@ -109,7 +113,10 @@ const form1040Fields = [
       const { filer_id } = form1040Data;
       if (!(filer_id && filer_id in humanSlice)) return null;
       const filer = humanSlice[filer_id];
-      return filer.last_name;
+      if (!filer) return null;
+      const { last_name } = filer;
+      if (!last_name) return null;
+      return last_name;
     },
   },
   {
@@ -120,7 +127,9 @@ const form1040Fields = [
       const { spouse_id } = form1040Data;
       if (!(spouse_id && spouse_id in humanSlice)) return null;
       const spouse = humanSlice[spouse_id];
+      if (!spouse) return null;
       const { first_name, middle_initial } = spouse;
+      if (!(first_name || middle_initial)) return null;
       return (
         first_name +
         (middle_initial ? " " + middle_initial + "." : "")
@@ -135,7 +144,10 @@ const form1040Fields = [
       const { spouse_id } = form1040Data;
       if (!(spouse_id && spouse_id in humanSlice)) return null;
       const spouse = humanSlice[spouse_id];
-      return spouse.last_name;
+      if (!spouse) return null;
+      const { last_name } = spouse;
+      if (!last_name) return null;
+      return last_name;
     },
   },
   {
@@ -147,13 +159,11 @@ const form1040Fields = [
       const { address_id } = form1040Data;
       if (!(address_id && address_id in addressSlice)) return null;
       const address = addressSlice[address_id];
-      return address.street;
+      if (!address) return null;
+      const { street } = address;
+      if (!street) return null;
+      return street;
     },
-  },
-  {
-    key: "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_11[0]",
-    type: "PDFTextField2",
-    label: "Apt. no.",
   },
   {
     key: "topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_12[0]",
@@ -164,7 +174,10 @@ const form1040Fields = [
       const { address_id } = form1040Data;
       if (!(address_id && address_id in addressSlice)) return null;
       const address = addressSlice[address_id];
-      return address.city;
+      if (!address) return null;
+      const { city } = address;
+      if (!city) return null;
+      return city;
     },
   },
   {
@@ -175,7 +188,10 @@ const form1040Fields = [
       const { address_id } = form1040Data;
       if (!(address_id && address_id in addressSlice)) return null;
       const address = addressSlice[address_id];
-      return address.state;
+      if (!address) return null;
+      const { state } = address;
+      if (!state) return null;
+      return state;
     },
   },
   {
@@ -186,7 +202,10 @@ const form1040Fields = [
       const { address_id } = form1040Data;
       if (!(address_id && address_id in addressSlice)) return null;
       const address = addressSlice[address_id];
-      return address.zip;
+      if (!address) return null;
+      const { zip } = address;
+      if (!zip) return null;
+      return zip;
     },
   },
   {
@@ -238,13 +257,13 @@ const form1040Fields = [
     key: "topmostSubform[0].Page1[0].f1_32[0]",
     type: "PDFTextField2",
     label: "Total amount from Form(s) W-2, box 1 (see instructions)",
-    value: ({ form1040Data: { wages } }) => wages,
+    value: ({ form1040Data: { wages } }) => wages || null,
   },
   {
     key: "topmostSubform[0].Page1[0].f1_41[0]",
     type: "PDFTextField2",
     label: "Add lines 1a through 1h",
-    value: ({ form1040Data: { wages } }) => wages,
+    value: ({ form1040Data: { wages } }) => wages || null,
   },
   {
     line: 9,
@@ -253,7 +272,7 @@ const form1040Fields = [
     type: "PDFTextField2",
     label: `Add lines 1z, 2b, 3b, 4b, 5b, 6b, 7, and 8.
             This is your total income`,
-    value: ({ form1040Data: { wages } }) => wages,
+    value: ({ form1040Data: { wages } }) => wages || null,
   },
   {
     line: 11,
@@ -262,7 +281,7 @@ const form1040Fields = [
     type: "PDFTextField2",
     label: `Subtract line 10 from line 9.
             This is your adjusted gross income`,
-    value: ({ form1040Data: { wages } }) => wages,
+    value: ({ form1040Data: { wages } }) => wages || null,
   },
   {
     line: 12,
@@ -282,7 +301,11 @@ const form1040Fields = [
     see instructions.
       */
     value: ({ form1040Data }) => {
-      return standard_deduction[form1040Data?.filing_status];
+      const { filing_status } = form1040Data;
+      if (!filing_status) return null;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      return deduction;
     },
   },
   {
@@ -291,7 +314,11 @@ const form1040Fields = [
     type: "PDFTextField2",
     label: "Add lines 12 and 13",
     value: ({ form1040Data }) => {
-      const line12 = standard_deduction[form1040Data?.filing_status];
+      const { filing_status } = form1040Data;
+      if (!filing_status) return null;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
       const line13 = 0;
       const line14 = line12 + line13;
       return line14;
@@ -306,8 +333,14 @@ const form1040Fields = [
             If zero or less, enter -0-.
             This is your taxable income`,
     value: ({ form1040Data }) => {
-      const line11 = form1040Data.wages;
-      const line12 = standard_deduction[form1040Data?.filing_status];
+      const { wages } = form1040Data;
+      if (!wages) return null;
+      const line11 = wages;
+      const { filing_status } = form1040Data;
+      if (!filing_status) return null;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
       const line13 = 0;
       const line14 = line12 + line13;
       const line15 = Math.max(line11 - line14, 0);
@@ -321,17 +354,18 @@ const form1040Fields = [
     type: "PDFTextField2",
     label: "tax",
     value: ({ form1040Data }) => {
-      const { tax_year } = form1040Data;
-      if (!tax_year) return null;
-      const status = form1040Data.filing_status;
-      const line11 = form1040Data.wages;
-      const line12 = standard_deduction[form1040Data?.filing_status];
+      const { tax_year, filing_status, wages } = form1040Data;
+      if (!(tax_year && filing_status && wages)) return null;
+      const line11 = wages;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
       const line13 = 0;
       const line14 = line12 + line13;
       const line15 = Math.max(line11 - line14, 0);
       const taxableIncome = line15;
 
-      const tax = getTax(tax_year, status, taxableIncome);
+      const tax = getTax(tax_year, filing_status, taxableIncome);
       const line16 = tax;
       return line16;
     },
@@ -343,17 +377,19 @@ const form1040Fields = [
     type: "PDFTextField2",
     label: "Add lines 22 and 23. This is your total tax",
     value: ({ form1040Data }) => {
-      const { tax_year } = form1040Data;
-      if (!tax_year) return null;
-      const status = form1040Data.filing_status;
-      const line11 = form1040Data.wages;
-      const line12 = standard_deduction[form1040Data?.filing_status];
+      const { tax_year, filing_status, wages } = form1040Data;
+      if (!(tax_year && filing_status && wages)) return null;
+      const line11 = wages;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
       const line13 = 0;
       const line14 = line12 + line13;
       const line15 = Math.max(line11 - line14, 0);
       const taxableIncome = line15;
 
-      const tax = getTax(tax_year, status, taxableIncome);
+      const tax = getTax(tax_year, filing_status, taxableIncome);
+      if (!tax) return null;
       const line16 = tax;
       /* assuming nothing on lines 17 - 23 */
       const totalTax = line16;
