@@ -501,6 +501,32 @@ const form1040Fields = [
     key: "topmostSubform[0].Page2[0].f2_28[0]",
     type: "PDFTextField2",
     label: "amount you owe.",
+    value: ({ form1040Data }) => {
+      const { tax_year, filing_status, wages } = form1040Data;
+      if (!(tax_year && filing_status && wages)) return null;
+      const line11 = wages;
+      const deduction = standard_deduction[filing_status];
+      if (!deduction) return null;
+      const line12 = deduction;
+      const line13 = 0;
+      const line14 = line12 + line13;
+      const line15 = Math.max(line11 - line14, 0);
+      const taxableIncome = line15;
+
+      const tax = getTax(tax_year, filing_status, taxableIncome);
+      const line16 = tax;
+      /* assuming nothing on lines 17 - 23 */
+      const totalTax = line16;
+      const line24 = totalTax;
+
+      const { withholdings } = form1040Data;
+      if (!withholdings) return null;
+      const line33 = withholdings;
+      if (line24 <= line33) return null;
+      const owe = line24 - line33;
+      const line37 = owe;
+      return line37;
+    },
   },
 ];
 export default form1040Fields;
