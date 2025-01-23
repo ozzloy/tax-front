@@ -13,6 +13,7 @@ import { PDFDocument } from "pdf-lib";
 import form1040Fields from "../../util/util";
 import { readHuman } from "../../store/humanSlice";
 import { readAddress } from "../../store/addressSlice";
+import { readTheme } from "../../store/themeSlice";
 
 const spousalFilingStatuses = ["Married Filing Jointly"];
 
@@ -28,6 +29,7 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
       dispatch(readHuman());
       dispatch(readAddress());
       dispatch(readForm1040());
+      dispatch(readTheme());
     };
     fetchData();
   }, [dispatch]);
