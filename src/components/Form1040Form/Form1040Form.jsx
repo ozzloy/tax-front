@@ -285,7 +285,7 @@ const Form1040Form = ({
       />
       {errors.wages && <p className="error">{errors.wages}</p>}
 
-      <label>wages, form w2, box 2</label>
+      <label>withholdings, form w2, box 2</label>
       <input
         placeholder="4000"
         name="withholdings"
