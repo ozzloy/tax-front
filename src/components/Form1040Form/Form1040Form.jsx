@@ -226,7 +226,9 @@ const Form1040Form = ({
         {humans
           .filter(
             (human) =>
-              formData && formData.spouse_id !== human.id.toString(),
+              /* formData && formData.spouse_id !== human.id.toString(), */
+              !formData.spouse_id ||
+              formData.spouse_id.toString() !== human.id.toString(),
           )
           .map((human) => (
             <option key={human.id} value={human.id}>
@@ -253,8 +255,9 @@ const Form1040Form = ({
               {humans
                 .filter(
                   (human) =>
-                    formData &&
-                    formData.filer_id !== human.id.toString(),
+                    !formData.filer_id ||
+                    formData.filer_id.toString() !==
+                      human.id.toString(),
                 )
                 .map((human) => (
                   <option key={human.id} value={human.id}>
