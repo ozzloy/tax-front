@@ -32,74 +32,72 @@ const ThemeDetail = ({ themeId, themeData }) => {
   };
 
   return (
-    <section
-      className="theme-detail"
-      style={{
-        backgroundColor: themeData.background_color,
-        color: themeData.foreground_color,
-        borderColor: themeData.foreground_color,
-      }}
-    >
-      {(showUpdateForm && (
-        <ThemeForm
-          closeForm={() => setShowUpdateForm(false)}
-          isUpdate={true}
-          themeId={themeId}
-          initialData={themeData}
-        />
-      )) || (
-        <>
-          <h2>{themeData.name}</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua.
-          </p>
-          <dl>
-            <dt>created</dt>
-            <dd>{new Date(themeData.created).toLocaleString()}</dd>
-            <dt>updated</dt>
-            <dd>{new Date(themeData.updated).toLocaleString()}</dd>
-          </dl>
-          <div className="theme-detail-buttons">
-            {themeData.king_id === king?.id && (
-              <>
-                <button
-                  onClick={() => setShowUpdateForm(true)}
-                  style={{
-                    backgroundColor: themeData.background_color,
-                    color: themeData.foreground_color,
-                    borderColor: themeData.foreground_color,
-                  }}
-                >
-                  update
-                </button>
-                <button
-                  onClick={handleDeleteTheme}
-                  style={{
-                    backgroundColor: themeData.background_color,
-                    color: themeData.foreground_color,
-                    borderColor: themeData.foreground_color,
-                  }}
-                >
-                  delete
-                </button>
-              </>
-            )}
-            <button
-              onClick={() => handleApplyTheme(themeId)}
-              style={{
-                backgroundColor: themeData.background_color,
-                color: themeData.foreground_color,
-                borderColor: themeData.foreground_color,
-              }}
-            >
-              apply
-            </button>
-          </div>
-        </>
-      )}
-    </section>
+    (showUpdateForm && (
+      <ThemeForm
+        closeForm={() => setShowUpdateForm(false)}
+        isUpdate={true}
+        themeId={themeId}
+        initialData={themeData}
+      />
+    )) || (
+      <section
+        className="theme-detail"
+        style={{
+          backgroundColor: themeData.background_color,
+          color: themeData.foreground_color,
+          borderColor: themeData.foreground_color,
+        }}
+      >
+        <h2>{themeData.name}</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+          do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua.
+        </p>
+        <dl>
+          <dt>created</dt>
+          <dd>{new Date(themeData.created).toLocaleString()}</dd>
+          <dt>updated</dt>
+          <dd>{new Date(themeData.updated).toLocaleString()}</dd>
+        </dl>
+        <div className="theme-detail-buttons">
+          {themeData.king_id === king?.id && (
+            <>
+              <button
+                onClick={() => setShowUpdateForm(true)}
+                style={{
+                  backgroundColor: themeData.background_color,
+                  color: themeData.foreground_color,
+                  borderColor: themeData.foreground_color,
+                }}
+              >
+                update
+              </button>
+              <button
+                onClick={handleDeleteTheme}
+                style={{
+                  backgroundColor: themeData.background_color,
+                  color: themeData.foreground_color,
+                  borderColor: themeData.foreground_color,
+                }}
+              >
+                delete
+              </button>
+            </>
+          )}
+          <button
+            onClick={() => handleApplyTheme(themeId)}
+            style={{
+              backgroundColor: themeData.background_color,
+              color: themeData.foreground_color,
+              borderColor: themeData.foreground_color,
+            }}
+          >
+            apply
+          </button>
+        </div>
+      </section>
+    )
   );
 };
 

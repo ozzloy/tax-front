@@ -86,7 +86,15 @@ const ThemeForm = ({
   };
 
   return (
-    <form className="theme-form" onSubmit={handleSubmit}>
+    <form
+      className="theme-form"
+      onSubmit={handleSubmit}
+      style={{
+        backgroundColor: formData.background_color,
+        color: formData.foreground_color,
+        borderColor: formData.foreground_color,
+      }}
+    >
       <h2>{isUpdate ? "update" : "new"} theme</h2>
 
       <label>name</label>
@@ -127,7 +135,14 @@ const ThemeForm = ({
       )}
 
       {errors._error && <p className="error">{errors._error}</p>}
-      <button disabled={status === "loading"}>
+      <button
+        disabled={status === "loading"}
+        style={{
+          backgroundColor: formData.foreground_color,
+          color: formData.background_color,
+          borderColor: formData.background_color,
+        }}
+      >
         {isUpdate ? "update" : "add"} theme
       </button>
     </form>
