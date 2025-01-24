@@ -5,29 +5,14 @@ import { useEffect } from "react";
 import Header from "../Header";
 import Main from "../Main";
 import Nav from "../Nav";
-import { readTheme } from "../../store/themeSlice";
 import { fetchCsrfToken } from "../../store/authSlice";
-import ThemeSelector from "../ThemeSelector";
 import { selectCurrentKing } from "../../store/kingSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { activeThemeId } = useSelector((state) => state.ui);
-  const { theme } = useSelector((state) => state.theme);
   const king = useSelector(selectCurrentKing);
-
-  const applyTheme = (theme) => {
-    const cssVars = {
-      "--foreground-color": theme.foreground_color,
-      "--background-color": theme.background_color,
-    };
-
-    Object.entries(cssVars).forEach(([key, value]) => {
-      document.documentElement.style.setProperty(key, value);
-    });
-  };
 
   useEffect(() => {
     const publicPaths = ["/home", "/"];
@@ -37,21 +22,14 @@ const Layout = () => {
   }, [king, location.pathname, navigate]);
 
   useEffect(() => {
-    if (!(activeThemeId && theme && theme[activeThemeId])) return;
-    applyTheme(theme[activeThemeId]);
-  }, [activeThemeId, theme]);
-
-  useEffect(() => {
     async function fetchData() {
       dispatch(fetchCsrfToken());
-      dispatch(readTheme());
     }
     fetchData();
   }, [dispatch]);
 
   return (
     <>
-      <ThemeSelector />
       <Header />
       <Nav />
       <Main />

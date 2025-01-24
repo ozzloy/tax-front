@@ -1,10 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  setCurrentModal,
-  setActiveThemeId,
-} from "../../store/uiSlice";
-import { readTheme } from "../../store/themeSlice";
+import { setCurrentModal } from "../../store/uiSlice";
 import Modal from "../Modal";
 import "./Header.css";
 import Login from "../Login";
@@ -19,38 +15,15 @@ const Header = () => {
   const navigate = useNavigate();
   const { currentModal } = useSelector((state) => state.ui);
   const king = useSelector(selectCurrentKing);
-  const themes = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     dispatch(readKing());
   }, [dispatch]);
 
-  const findSystemThemeId = (themes, themeName) => {
-    const systemThemes = Object.values(themes).filter(
-      (theme) => theme.king_id === null,
-    );
-    return systemThemes.find((theme) => theme.name === themeName)?.id;
-  };
-
-  const setUserPreferredTheme = () => {
-    if (!themes) return;
-    const prefersLight = window.matchMedia(
-      "(prefers-color-scheme: light)",
-    ).matches;
-    const preferredThemeName = prefersLight ? "light" : "night";
-
-    const themeId = findSystemThemeId(themes, preferredThemeName);
-    if (themeId) {
-      dispatch(setActiveThemeId(themeId));
-    }
-  };
-
   const handleAuthOptions = async () => {
     if (king) {
       const result = await dispatch(logout());
       if (logout.fulfilled.match(result)) {
-        await dispatch(readTheme());
-        setUserPreferredTheme();
         navigate("/home");
       }
     } else {

@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { setActiveThemeId } from "../../store/uiSlice";
 import "./ThemeDetail.css";
 import { selectCurrentKing, updateKing } from "../../store/kingSlice";
 import ThemeForm from "../ThemeForm";
@@ -16,7 +15,6 @@ const ThemeDetail = ({ themeId, themeData }) => {
 
   const handleDeleteTheme = () => {
     const activeThemeId = king?.theme_id;
-    dispatch(deleteTheme({ id: themeId }));
 
     // if the current theme is the theme we're deleting,
     if (activeThemeId === themeId) {
@@ -26,11 +24,11 @@ const ThemeDetail = ({ themeId, themeData }) => {
       //   choose another theme at random
       handleApplyTheme(restThemeIds[0]);
     }
+    dispatch(deleteTheme({ id: themeId }));
   };
 
-  const handleApplyTheme = (themeId) => {
-    dispatch(setActiveThemeId(themeId));
-    dispatch(updateKing({ theme_id: themeId }));
+  const handleApplyTheme = async (themeId) => {
+    await dispatch(updateKing({ theme_id: themeId }));
   };
 
   return (

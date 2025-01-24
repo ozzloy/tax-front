@@ -57,12 +57,9 @@ export const updateTheme = createAsyncThunk(
 
 export const deleteTheme = createAsyncThunk(
   "theme/delete",
-  async ({ id, ...themeData }, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await api.delete(
-        `/api/theme/${id}`,
-        themeData,
-      );
+      const response = await api.delete(`/api/theme/${id}`);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
