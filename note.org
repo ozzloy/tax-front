@@ -1,3 +1,5 @@
+* TODO if delete current theme, switch to system preferred theme
+* TODO remember light/night theme when creating new account
 * TODO add birthdate
 [2025-01-22 Wed 20:40 -0800]
 need for determining whether filer was born before jan 2, 1960.

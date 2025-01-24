@@ -179,7 +179,7 @@ const Form1040Form = ({
       />
       {errors.tax_year && <p className="error">{errors.tax_year}</p>}
 
-      <label>address id</label>
+      <label>address</label>
       <select
         name="address_id"
         value={formData.address_id || ""}
