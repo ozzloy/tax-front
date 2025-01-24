@@ -106,14 +106,14 @@ const Form1040Detail = ({ form1040Id, form1040Data }) => {
           <dl>
             <dt>name</dt>
             <dd>{form1040Data.name}</dd>
-            <dt>tax_year</dt>
+            <dt>tax year</dt>
             <dd>{form1040Data.tax_year}</dd>
             <dt>address</dt>
             <dd>
               {makePlace(address[form1040Data.address_id]) ||
                 "[empty]"}
             </dd>
-            <dt>filing_status</dt>
+            <dt>filing status</dt>
             <dd>{form1040Data.filing_status || "[empty]"}</dd>
             <dt>filer</dt>
             <dd>
